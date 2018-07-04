@@ -9,6 +9,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="二进制之坑….">
+    
 
     <!--Author-->
     
@@ -16,6 +18,8 @@
     
 
     <!--Open Graph Title-->
+    
+        <meta property="og:title" content="爬坑之路--BIN(二)--3"/>
     
 
     <!--Page Cover-->
@@ -25,7 +29,7 @@
 
     <!-- Title -->
     
-    <title>JXF</title>
+    <title>爬坑之路--BIN(二)--3 - JXF</title>
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="JXF"/>
@@ -68,7 +72,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="heading">
-                    <h1>Archives</h1>
+                    <h1>JXF</h1>
                     <span class="subheading"></span>
                 </div>
             </div>
@@ -124,84 +128,72 @@
 </nav>
 
 
-    
-
-<div class="container">
-	<div class="row">
-        <div class="col-md-12">
-            
-                <article>
-    <div class="post-title">
-        <a href="/2018/07/04/爬坑之路-BIN--(二)--3/">
-            <h2>爬坑之路--BIN(二)--3</h2>
-        </a>
-        <span class="meta">
-            <!-- Date and Author -->
-            
-            2018-07-04
-        </span> 
-    </div>
-    <hr>
-</article>
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row post-title">
+            <!-- Post Title -->
+            <div class="col-md-12">
+                <h1>爬坑之路--BIN(二)--3</h1>
+                <span class="meta">
+                    <!-- Date and Author -->
+                    
+                    2018-07-04
+                    
 
 
-            
-                <article>
-    <div class="post-title">
-        <a href="/2018/07/03/爬坑之路--WEB(二)--2/">
-            <h2>爬坑之路--WEB(二)--2</h2>
-        </a>
-        <span class="meta">
-            <!-- Date and Author -->
-            
-            2018-07-03
-        </span> 
-    </div>
-    <hr>
-</article>
-
-
-            
-                <article>
-    <div class="post-title">
-        <a href="/2018/07/03/爬坑之路--WEB(一)--2/">
-            <h2>爬坑之路--WEB(一)--2；</h2>
-        </a>
-        <span class="meta">
-            <!-- Date and Author -->
-            
-            2018-07-03
-        </span> 
-    </div>
-    <hr>
-</article>
-
-
-            
-                <article>
-    <div class="post-title">
-        <a href="/2018/07/01/爬坑之路--BIN(一)--1/">
-            <h2>爬坑之路--BIN(一)--1.md</h2>
-        </a>
-        <span class="meta">
-            <!-- Date and Author -->
-            
-            2018-07-01
-        </span> 
-    </div>
-    <hr>
-</article>
-
-
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+                </span> 
+            </div>
+        </div>
+        <div class="row post-content">
+            <!-- Post Main Content -->
+            <div class="col-md-12">
+                <p>二进制之坑….</p>
+<a id="more"></a>
+<p>今天学习二进制基础。<br>了解电脑如何运行，以及运行中栈的变化。</p>
+<h2 id="程序运行原理"><a href="#程序运行原理" class="headerlink" title="程序运行原理"></a>程序运行原理</h2><p>因为大部分程序运行时是直接放在内存中，但是内存相比于CPU读取速度非常慢，所以就有一系列的设备来使最后的<br>内存文件读取速度与CPU读取速度相匹配。<br>其中CPU访问快慢速度：寄存器-&gt;缓存-&gt;内存-&gt;硬盘<br>硬盘用于永久存储所有的数据。当程序运行时，程序内容会被放进内存中，占用内存的空间。缓存和寄存器则相对速度更快，作为数据和CPU之间连接的桥梁。</p>
+<h2 id="小端序"><a href="#小端序" class="headerlink" title="小端序"></a>小端序</h2><ul>
+<li><p>在计算机领域 许多字节数据是在计算机内存中存放的字节顺序<br>主要分为大端序和小端序</p>
+</li>
+<li><p>数据的高位字节存放在地址的高端 低位字节存放在地址低端（小端序）</p>
+</li>
 </ul>
+<h3 id="简单不同类型变量所占字节"><a href="#简单不同类型变量所占字节" class="headerlink" title="简单不同类型变量所占字节"></a>简单不同类型变量所占字节</h3><ul>
+<li>char 1 Bite</li>
+<li>int  4 Bite</li>
+</ul>
+<h4 id="小端序举例"><a href="#小端序举例" class="headerlink" title="小端序举例"></a>小端序举例</h4><ul>
+<li>char a=’A’      41</li>
+<li>char a[]=”pwn”  70 77 6e 00  (‘p’=70,’w’=77,’n’=6e.’\0’=00)</li>
+<li>int a=0x1234    34 12</li>
+</ul>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>特性：</strong></p>
+<ul>
+<li>先进后出</li>
+<li>从高地址向低地址延伸</li>
+</ul>
+<p><img src="https://i.imgur.com/fxXYixw.png" alt=""></p>
+<p><strong>作用：</strong></p>
+<ul>
+<li>暂时保存变量</li>
+<li>调用函数时传递参数</li>
+<li>保存函数返回地址</li>
+</ul>
+<p><strong>栈帧：栈帧就是利用EBP访问栈内数据</strong><br><img src="https://i.imgur.com/idj3Emp.jpg" alt=""></p>
+<p><strong>调试swap函数并观察栈的变化</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *aa,<span class="keyword">int</span> *bb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> cc=*aa;</span><br><span class="line">	*aa=*bb;</span><br><span class="line">    *bb=cc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">0</span>;</span><br><span class="line">	swap(&amp;a,&amp;b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先运行到swap(&amp;a,&amp;b)；语句a=1且地址为3572048，b=0且地址为3572032，调用函数并是指针aa指向地址为3572048，指针bb指向3572032，通过cc=<em>aa使cc=1，执行</em>aa=*bb使在地址为3572048值变为0，即a=0，下面同样使b=1完成交换。</p>
+<p>未完待续……</p>
+
+            </div>
+        </div>
+        <!-- Comments -->
+        <div class="row">
+            <div class="col-md-12">
+                
+            </div>
         </div>
     </div>
-</div>
+</article>
 
     <!-- Footer -->
     <footer class="footer">
