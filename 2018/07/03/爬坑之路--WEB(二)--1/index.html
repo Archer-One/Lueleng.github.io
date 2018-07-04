@@ -9,7 +9,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="第一天我仿佛就已经掉到了谷底…">
+        <meta name="description" content="学习使我快乐…..得把">
     
 
     <!--Author-->
@@ -19,7 +19,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="爬坑之路--1"/>
+        <meta property="og:title" content="爬坑之路--WEB(二)--1"/>
     
 
     <!--Page Cover-->
@@ -29,7 +29,7 @@
 
     <!-- Title -->
     
-    <title>爬坑之路--1 - JXF</title>
+    <title>爬坑之路--WEB(二)--1 - JXF</title>
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="JXF"/>
@@ -134,11 +134,11 @@
         <div class="row post-title">
             <!-- Post Title -->
             <div class="col-md-12">
-                <h1>爬坑之路--1</h1>
+                <h1>爬坑之路--WEB(二)--1</h1>
                 <span class="meta">
                     <!-- Date and Author -->
                     
-                    2018-07-01
+                    2018-07-03
                     
 
 
@@ -148,66 +148,40 @@
         <div class="row post-content">
             <!-- Post Main Content -->
             <div class="col-md-12">
-                <p><strong>第一天我仿佛就已经掉到了谷底…</strong></p>
-<a id="more"></a>
-<h1 id="汇编语言-基础"><a href="#汇编语言-基础" class="headerlink" title="汇编语言 基础"></a>汇编语言 基础</h1><h2 id="C语言代码"><a href="#C语言代码" class="headerlink" title="C语言代码"></a>C语言代码</h2><ul>
-<li>普通的C写出的代码</li>
-</ul>
-<h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><ul>
-<li>汇编语言（assembly language）是一种用于电子计算机、微处理器、微控制器或其他可编程器件的低级语言，亦称为符号语言。</li>
-</ul>
-<h2 id="机器码"><a href="#机器码" class="headerlink" title="机器码"></a>机器码</h2><ul>
-<li>机器码指的是将硬件序列号经过一系列加密、散列形成的一串序列号。</li>
-</ul>
-<h2 id="简单数值表示"><a href="#简单数值表示" class="headerlink" title="简单数值表示"></a>简单数值表示</h2><ul>
-<li>bit  单字节</li>
-<li>byte 8bit</li>
-<li>word 2byte</li>
-<li>dword 4byte</li>
-<li>qword 8byte</li>
-<li>oword 16byte</li>
-</ul>
-<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器:"></a>寄存器:</h2><ul>
-<li>EAX   Accumulator</li>
-<li>ECX      Counter</li>
-<li>EDX   Data</li>
-<li>EBX   Base</li>
-<li>ESP  Stack Pointer</li>
-<li>EBP  Base Pointer</li>
-<li>ESI   Source</li>
-<li>EDI   Destination</li>
-<li>EIP   Instruction pointer</li>
-</ul>
-<p>###标志寄存器</p>
+                <p>学习使我快乐…..得把<br><a id="more"></a><br>下午学姐讲了 简单的介绍关于爆破的基础中的基础知识</p>
+<p>首先需要使用软件Burpsuit，同时要在火狐上利用插件改成8080端口。</p>
+<p>下面来看例题。</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>简单破解网站上的密码</p>
+<p><img src="https://i.imgur.com/NmZmNUC.png" alt=""></p>
+<p>看到显示发现密码是<strong>首位不为零的四位数</strong>，便可以判断密码范围是<strong>1000~9999</strong></p>
+<p>设置端口并准备进行抓包</p>
+<p><img src="https://i.imgur.com/ukn09sD.png" alt=""></p>
+<p><img src="https://i.imgur.com/YUTp0fo.png" alt=""></p>
+<p>抓包成功，现在进行寻找密码，因为正确密码和错误密码的系统反应是不同的所以可以根据系统反正的长短来确定正确密码应该是哪个。下图为主要步骤：</p>
 <ul>
-<li>CF OF ZF SF PF</li>
+<li><strong>步骤一</strong></li>
 </ul>
-<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><ul>
-<li><strong>立即数寻址</strong>：MOV EAX,123H</li>
-<li><strong>寄存器寻址</strong>：MOV EAX,EBX</li>
-<li><strong>直接寻址</strong>：MOV EAX, [12345678H]</li>
-<li><strong>寄存器间接寻址</strong>：MOV EAX, [EBX]</li>
-</ul>
-<h2 id="调试演示"><a href="#调试演示" class="headerlink" title="调试演示"></a>调试演示</h2><p>首先需要在虚拟机win7上运行</p>
-<h3 id="界面分布"><a href="#界面分布" class="headerlink" title="界面分布"></a>界面分布</h3><p><img src="https://i.imgur.com/l5NscFM.jpg" alt=""><br>打开OllyDbg，并将应用程序拖入此文件<br><img src="https://i.imgur.com/AsqejP0.png" alt=""></p>
-<h3 id="常用快捷键"><a href="#常用快捷键" class="headerlink" title="常用快捷键"></a>常用快捷键</h3><p><img src="https://i.imgur.com/fhL8pyR.png" alt=""><br><img src="https://i.imgur.com/UZQ8s7J.png" alt=""></p>
-<p>##例题 Hello World</p>
-<p>###寻找Main函数方法</p>
+<p><img src="https://i.imgur.com/KmxLuNi.png" alt=""></p>
 <ul>
-<li><p><strong>代码执行法</strong> （利用F7键单步运行，直到找到Main函数）</p>
-</li>
-<li><p><strong>层层推进法</strong> （利用F8键步过被调试程序直至Main函数）</p>
-</li>
-<li><p><strong>字符串检索法</strong>（首先运行一遍，看是否可以可以看到关键字，如本题可以看到运行时跳出弹框并显示”Hello World”，然后在主线程模块右键找到中文搜索引擎，并在该窗口继续右键点击Find，接着输入关键字”Hello World”，并双击打开。注意：搜寻时程序运行需要在起始位置）<br><img src="https://i.imgur.com/cmhojwt.png" alt=""></p>
-</li>
-<li><p><strong>API检索法</strong> (利用一些特有的函数来判断主函数（右键-&gt;查找-&gt;所有模块名称（设置按名称排序，此题可利用MessageBox（MessageBox指的是显示一个模态对话框）来查找到））)</p>
-</li>
-<li><p><strong>特征法</strong> 利用三个连续PUSH入栈操作寻找</p>
-</li>
+<li><strong>步骤二</strong></li>
 </ul>
-<h3 id="修改弹框内容"><a href="#修改弹框内容" class="headerlink" title="修改弹框内容"></a>修改弹框内容</h3><p>####直接修改原字符串<br>在Main函数中找到该字符串的地址，然后在内存区单击并按快捷键CTRL+G<br><img src="https://i.imgur.com/0ORO92j.png" alt=""><br><img src="https://i.imgur.com/Co4ATg2.png" alt=""><br>修改好后单击内存区并右键-&gt;复制到可执行文件，在跳出的窗口再次右键-&gt;保存文件</p>
-<p>####直接修改汇编语言<br>找到主函数 按space键或CRTL+E修改<br><img src="https://i.imgur.com/upFYv8m.png" alt=""><br>修改好后右键-&gt;复制到可执行文件，在跳出的窗口再次右键-&gt;保存文件</p>
-<h2 id="Fact函数下期再看"><a href="#Fact函数下期再看" class="headerlink" title="Fact函数下期再看"></a>Fact函数下期再看</h2>
+<p><img src="https://i.imgur.com/BOPOcEw.png" alt=""></p>
+<ul>
+<li><strong>步骤三</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/XrZgGhb.png" alt=""></p>
+<ul>
+<li><strong>步骤四</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/hMLViwd.png" alt=""></p>
+<ul>
+<li><strong>步骤五</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/5WzINTf.png" alt=""></p>
+<p>可以明显看到当密码为1238输入时反馈明显不同于其它，所以就可以断定这个便是密码。<br>最后将密码输入进去，得到答案。</p>
+<p><img src="https://i.imgur.com/XUUpdJB.png" alt=""></p>
+<p>好了，等我弄懂了另外一道题再来详细解释它吧。<br>未完待续……</p>
+
             </div>
         </div>
         <!-- Comments -->

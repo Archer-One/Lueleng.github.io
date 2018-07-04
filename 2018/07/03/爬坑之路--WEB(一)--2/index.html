@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="今天的我在谷底为自己又挖了一铲….">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SB">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="爬坑之路--WEB(一)--2；"/>
+    
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="/img/javascript1.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>爬坑之路--WEB(一)--2； - JXF</title>
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="JXF"/>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <!-- Twitter bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-75647720-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+    
+</head>
+
+
+<body>
+    
+    <!-- Header -->
+    <header class="header hidden-xs" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/img/javascript1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading">
+                    <h1>JXF</h1>
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+	<!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://sandromartis.com" target="_blank">
+                        Sandro Martis
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                            <li>
+                                <a href="/">
+                                    Home
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/archives">
+                                    Archives
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="/about">
+                                    About
+                                </a>
+                            </li>
+                            
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row post-title">
+            <!-- Post Title -->
+            <div class="col-md-12">
+                <h1>爬坑之路--WEB(一)--2；</h1>
+                <span class="meta">
+                    <!-- Date and Author -->
+                    
+                    2018-07-03
+                    
+
+
+                </span> 
+            </div>
+        </div>
+        <div class="row post-content">
+            <!-- Post Main Content -->
+            <div class="col-md-12">
+                <p>今天的我在谷底为自己又挖了一铲….<br><a id="more"></a></p>
+<h2 id="PHP基础语句"><a href="#PHP基础语句" class="headerlink" title="PHP基础语句"></a>PHP基础语句</h2><h3 id="PHP-变量规则"><a href="#PHP-变量规则" class="headerlink" title="PHP 变量规则"></a>PHP 变量规则</h3><ul>
+<li>变量以$符号开头，其后是变量的名称；</li>
+<li>变量名称必须以字母或下划线开头</li>
+<li>变量名只能包含字母数字字符和下划线</li>
+<li>变量名称<strong>大小写敏感</strong></li>
+</ul>
+<h3 id="PHP语言基础"><a href="#PHP语言基础" class="headerlink" title="PHP语言基础"></a>PHP语言基础</h3><ul>
+<li><strong>echo：</strong> 表示打印，当有字符串是需要加引号；</li>
+<li><strong>单引号双引号区别：</strong>   单引号时只会当成字符串输出，而如果是双引号里面的变量名会进行解析，将其换成代表的值；</li>
+<li>语句需要写在&lt;?php ?&gt;内；</li>
+<li><strong>关联数组</strong> 利用键；</li>
+<li><strong>.</strong> 代表字符串连接符</li>
+</ul>
+<h2 id="信息流"><a href="#信息流" class="headerlink" title="信息流"></a>信息流</h2><h3 id="URL（统一资源定位符）"><a href="#URL（统一资源定位符）" class="headerlink" title="URL（统一资源定位符）"></a>URL（统一资源定位符）</h3><ul>
+<li><strong>作用：</strong> 提供资源的路径或位置</li>
+<li><strong>结构：</strong> 协议://授权//路径?查询</li>
+<li><strong>例子：</strong> <a href="http://www.cobranet.org/about.php?id=1" target="_blank" rel="noopener">http://www.cobranet.org/about.php?id=1</a></li>
+</ul>
+<h4 id="HTTP分类"><a href="#HTTP分类" class="headerlink" title="HTTP分类"></a>HTTP分类</h4><ul>
+<li><strong>GET</strong> 请求：通过get方法传递参数，注意id参数值，数字和字符串的输出结果，变量$id也可以去其他名字，但访问的时候要保持URL?后面参数的名字与变量名一致。</li>
+<li>例子：<br><img src="https://i.imgur.com/kXhL4If.png" alt=""><br><img src="https://i.imgur.com/KROWfTH.png" alt=""><br><img src="https://i.imgur.com/Xb31gwl.png" alt=""></li>
+</ul>
+<ul>
+<li><strong>POST</strong>请求：通过post方法传递参数</li>
+<li>例子：<br><img src="https://i.imgur.com/niaSyPI.png" alt=""><br><img src="https://i.imgur.com/tIqd5yB.png" alt=""></li>
+</ul>
+<h3 id="PHP基础语句-1"><a href="#PHP基础语句-1" class="headerlink" title="PHP基础语句"></a>PHP基础语句</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_connect(servername,username,password)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/YSLiGeJ.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select column_name(s) from table_name</span><br></pre></td></tr></table></figure>
+<p>(SQL对大小写不敏感与PHP不同)<br>如果要让PHP执行上面的语句必须要和mysql_query()函数搭配使用。该函数用于想MYSQL发送查询或者命令。</p>
+<p><img src="https://i.imgur.com/S9arcJr.png" alt=""></p>
+<p><img src="https://i.imgur.com/VkdKC9V.png" alt=""></p>
+<ul>
+<li>例子：<br><img src="https://i.imgur.com/pn62kDa.png" alt=""></li>
+</ul>
+<p><img src="https://i.imgur.com/yRljhYM.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_fetch_array()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/TdZEXYU.png" alt=""></p>
+<ul>
+<li>例子<br><img src="https://i.imgur.com/ihi2WHQ.png" alt=""><br><img src="https://i.imgur.com/XGxbDVR.png" alt=""></li>
+</ul>
+<h2 id="建立数据库"><a href="#建立数据库" class="headerlink" title="建立数据库"></a>建立数据库</h2><h3 id="数据库基础语句"><a href="#数据库基础语句" class="headerlink" title="数据库基础语句"></a>数据库基础语句</h3><ul>
+<li>更改密码:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;update mysql.user set password=password(&apos;test&apos;) where username=&apos;root&apos;;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看数据库：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;show databases;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>选择一个数据库进入：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看当前数据库的所有数据表</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;show tables;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看某张表的所有字段信息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;desc users;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建一个数据库，命名为mysql</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;create database mysql;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除一个名为mysql数据库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;drop database mysql;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>建立一个字段名为id自动加1的主键，password（字符串），age（int）的表：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;create table message</span><br><span class="line">（</span><br><span class="line">	id int auto_increment,   /设置为自增</span><br><span class="line">	password varchar(20),</span><br><span class="line">	age int,</span><br><span class="line">    primary key (id)        /设置为主键</span><br><span class="line">）;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>挑选字段,*表示当前表的所有字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;select * from users</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例：</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/SoALM7T.png" alt=""></p>
+<p><img src="https://i.imgur.com/KdaGU0V.png" alt=""></p>
+<p>##搭建一个post网页</p>
+<p><img src="https://i.imgur.com/u0pQUCw.png" alt=""></p>
+<p><img src="https://i.imgur.com/EuBMEd1.png" alt=""></p>
+<h2 id="开始注入"><a href="#开始注入" class="headerlink" title="开始注入"></a>开始注入</h2><h3 id="基本语句"><a href="#基本语句" class="headerlink" title="基本语句"></a>基本语句</h3><ul>
+<li><strong>union select：</strong>联合查询，即前一条查询语句失败后执行后一条语句。</li>
+<li><strong>group by：</strong>后接数字，表示按照第几列进行排序（可以用来探测数据有多少字段）</li>
+<li><strong>group_concat：</strong>将查询结果以一行的形式输出 （因为某一些网页只会输出一行固定的数据，普通的输出是不行的，所以需要将所有的信息形成一行输出，在下面的例子我们会用到）</li>
+</ul>
+<h3 id="数据库查询语句"><a href="#数据库查询语句" class="headerlink" title="数据库查询语句"></a>数据库查询语句</h3><h4 id="判断是否存在注入，注入是字符型还是数字型"><a href="#判断是否存在注入，注入是字符型还是数字型" class="headerlink" title="判断是否存在注入，注入是字符型还是数字型"></a>判断是否存在注入，注入是字符型还是数字型</h4><p><img src="https://i.imgur.com/cmLU6p8.png" alt=""></p>
+<ul>
+<li>输入1，查询成功：</li>
+<li>输入1’ and ‘1’ =’2，查询失败，返回结果为空：</li>
+<li>输入1’or ‘1 ’=’1，查询成功：</li>
+<li><strong>返回了多个结果，说明存在字符型注入。</strong></li>
+</ul>
+<h4 id="猜解SQL查询语句中的字段数"><a href="#猜解SQL查询语句中的字段数" class="headerlink" title="猜解SQL查询语句中的字段数"></a>猜解SQL查询语句中的字段数</h4><ul>
+<li>输入1’ or 1=1 order by 1 #，查询成功</li>
+<li>输入1’ or 1=1 order by 2 #，查询成功</li>
+<li>输入1’ or 1=1 order by 3 #，查询失败</li>
+<li>说明执行的SQL查询语句中只有两个字段。</li>
+</ul>
+<h4 id="确定显示的字段顺序"><a href="#确定显示的字段顺序" class="headerlink" title="确定显示的字段顺序"></a>确定显示的字段顺序</h4><ul>
+<li>利用union select </li>
+</ul>
+<h4 id="获取当前数据库"><a href="#获取当前数据库" class="headerlink" title="获取当前数据库"></a>获取当前数据库</h4><ul>
+<li>利用union select ,database() </li>
+</ul>
+<h3 id="特殊小知识"><a href="#特殊小知识" class="headerlink" title="特殊小知识"></a>特殊小知识</h3><ul>
+<li>Information_schema.tables:包含所有数据表名</li>
+<li>Information_schema.columns:包含所有字段</li>
+</ul>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>现在利用前面自己编写的网页来注入。</p>
+<ul>
+<li><strong>步骤一：</strong>判断是否可以注入<br><img src="https://i.imgur.com/HHzggYC.png" alt=""></li>
+</ul>
+<p><img src="https://i.imgur.com/6HCKzNL.png" alt=""></p>
+<p>根据通过输入数字1和字符串‘1’反馈不同发现有注入点，并且是字符型注入（下方标红为输入语句,下同）</p>
+<ul>
+<li><strong>步骤二：</strong>判断有几个字段<br><img src="https://i.imgur.com/VpQRXc0.png" alt=""></li>
+</ul>
+<p><img src="https://i.imgur.com/HrXbsGo.png" alt=""></p>
+<p><img src="https://i.imgur.com/5JoqRPZ.png" alt=""></p>
+<p>通过grouop by 5,6和7的反馈不同，我们可以确定其有六个字段</p>
+<ul>
+<li><strong>步骤三：</strong>确定显示的字段</li>
+</ul>
+<p><img src="https://i.imgur.com/HHmr0rf.png" alt=""></p>
+<ul>
+<li><strong>步骤四：</strong>确定数据库名称</li>
+</ul>
+<p><img src="https://i.imgur.com/O8R1pSc.png" alt=""><br>由此可知该数据库的名称是jxf1</p>
+<ul>
+<li><p><strong>步骤五：</strong>获取当前数据的表名<br><img src="https://i.imgur.com/6G8yKE1.png" alt=""><br>由上图已知该数据库有两个表，message和message1，我们假设先从message1开始搜寻。</p>
+</li>
+<li><p><strong>步骤六：</strong>获取message1的字段名<br><img src="https://i.imgur.com/LLcueLh.png" alt=""><br>就常识而言可知flag是藏在password中的，让我们接下来搜寻password字段</p>
+</li>
+<li><p><strong>步骤七：</strong>搜寻password字段名<br><img src="https://i.imgur.com/bmamxn3.png" alt=""></p>
+</li>
+</ul>
+<p><strong>找到！！！！！！！</strong></p>
+<p>未完待续…….</p>
+
+            </div>
+        </div>
+        <!-- Comments -->
+        <div class="row">
+            <div class="col-md-12">
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="footer-info" class="inner">
+        <ul class="list-inline text-center">
+            <li>
+                <a href="https://twitter.com/santsches" target="_blank">
+                    <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/sandro-martis" target="_blank">
+                    <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/sandromartis" target="_blank">
+                    <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                </a>
+            </li>
+            <li>
+                <a href="https://stackoverflow.com/users/4801013/sandro-martis" target="_blank">
+                    <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                </span>
+                </a>
+            </li>
+        </ul>
+        <p class="copyright text-muted">&copy;
+            2018
+                SB
+        </p>
+    </div>
+</footer>
+
+
+    <!-- After Footer -->
+    
+</body>
+
+</html>
