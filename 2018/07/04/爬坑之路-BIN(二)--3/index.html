@@ -3,29 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>爬坑之路--WEB(二)--2 | JXF</title>
+  <title>爬坑之路--BIN(二)--3 | JXF</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习使我快乐…..得把">
+  <meta name="description" content="二进制之坑….">
 <meta property="og:type" content="article">
-<meta property="og:title" content="爬坑之路--WEB(二)--2">
-<meta property="og:url" content="http://yoursite.com/2018/07/03/爬坑之路--WEB(二)--2/index.html">
+<meta property="og:title" content="爬坑之路--BIN(二)--3">
+<meta property="og:url" content="http://yoursite.com/2018/07/04/爬坑之路-BIN(二)--3/index.html">
 <meta property="og:site_name" content="JXF">
-<meta property="og:description" content="学习使我快乐…..得把">
+<meta property="og:description" content="二进制之坑….">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://i.imgur.com/NmZmNUC.png">
-<meta property="og:image" content="https://i.imgur.com/ukn09sD.png">
-<meta property="og:image" content="https://i.imgur.com/YUTp0fo.png">
-<meta property="og:image" content="https://i.imgur.com/KmxLuNi.png">
-<meta property="og:image" content="https://i.imgur.com/BOPOcEw.png">
-<meta property="og:image" content="https://i.imgur.com/XrZgGhb.png">
-<meta property="og:image" content="https://i.imgur.com/hMLViwd.png">
-<meta property="og:image" content="https://i.imgur.com/5WzINTf.png">
-<meta property="og:image" content="https://i.imgur.com/XUUpdJB.png">
-<meta property="og:updated_time" content="2018-07-04T01:26:01.319Z">
+<meta property="og:image" content="https://i.imgur.com/fxXYixw.png">
+<meta property="og:image" content="https://i.imgur.com/idj3Emp.jpg">
+<meta property="og:updated_time" content="2018-07-04T07:17:58.037Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="爬坑之路--WEB(二)--2">
-<meta name="twitter:description" content="学习使我快乐…..得把">
-<meta name="twitter:image" content="https://i.imgur.com/NmZmNUC.png">
+<meta name="twitter:title" content="爬坑之路--BIN(二)--3">
+<meta name="twitter:description" content="二进制之坑….">
+<meta name="twitter:image" content="https://i.imgur.com/fxXYixw.png">
   
     <link rel="alternative" href="/atom.xml" title="JXF" type="application/atom+xml">
   
@@ -239,11 +232,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-爬坑之路--WEB(二)--2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-爬坑之路-BIN(二)--3" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/07/03/爬坑之路--WEB(二)--2/" class="article-date">
-      <time datetime="2018-07-03T12:55:50.000Z" itemprop="datePublished">2018-07-03</time>
+      <a href="/2018/07/04/爬坑之路-BIN(二)--3/" class="article-date">
+      <time datetime="2018-07-04T02:38:41.000Z" itemprop="datePublished">2018-07-04</time>
 </a>
     </div>
   
@@ -256,7 +249,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      爬坑之路--WEB(二)--2
+      爬坑之路--BIN(二)--3
     </h1>
   
 
@@ -273,39 +266,41 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>学习使我快乐…..得把<br><a id="more"></a><br>下午学姐讲了 简单的介绍关于爆破的基础中的基础知识</p>
-<p>首先需要使用软件Burpsuit，同时要在火狐上利用插件改成8080端口。</p>
-<p>下面来看例题。</p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>简单破解网站上的密码</p>
-<p><img src="https://i.imgur.com/NmZmNUC.png" alt=""></p>
-<p>看到显示发现密码是<strong>首位不为零的四位数</strong>，便可以判断密码范围是<strong>1000~9999</strong></p>
-<p>设置端口并准备进行抓包</p>
-<p><img src="https://i.imgur.com/ukn09sD.png" alt=""></p>
-<p><img src="https://i.imgur.com/YUTp0fo.png" alt=""></p>
-<p>抓包成功，现在进行寻找密码，因为正确密码和错误密码的系统反应是不同的所以可以根据系统反正的长短来确定正确密码应该是哪个。下图为主要步骤：</p>
-<ul>
-<li><strong>步骤一</strong></li>
+        <p>二进制之坑….</p>
+<a id="more"></a>
+<p>今天学习二进制基础。<br>了解电脑如何运行，以及运行中栈的变化。</p>
+<h2 id="程序运行原理"><a href="#程序运行原理" class="headerlink" title="程序运行原理"></a>程序运行原理</h2><p>因为大部分程序运行时是直接放在内存中，但是内存相比于CPU读取速度非常慢，所以就有一系列的设备来使最后的<br>内存文件读取速度与CPU读取速度相匹配。<br>其中CPU访问快慢速度：寄存器-&gt;缓存-&gt;内存-&gt;硬盘<br>硬盘用于永久存储所有的数据。当程序运行时，程序内容会被放进内存中，占用内存的空间。缓存和寄存器则相对速度更快，作为数据和CPU之间连接的桥梁。</p>
+<h2 id="小端序"><a href="#小端序" class="headerlink" title="小端序"></a>小端序</h2><ul>
+<li><p>在计算机领域 许多字节数据是在计算机内存中存放的字节顺序<br>主要分为大端序和小端序</p>
+</li>
+<li><p>数据的高位字节存放在地址的高端 低位字节存放在地址低端（小端序）</p>
+</li>
 </ul>
-<p><img src="https://i.imgur.com/KmxLuNi.png" alt=""></p>
-<ul>
-<li><strong>步骤二</strong></li>
+<h3 id="简单不同类型变量所占字节"><a href="#简单不同类型变量所占字节" class="headerlink" title="简单不同类型变量所占字节"></a>简单不同类型变量所占字节</h3><ul>
+<li>char 1 Bite</li>
+<li>int  4 Bite</li>
 </ul>
-<p><img src="https://i.imgur.com/BOPOcEw.png" alt=""></p>
-<ul>
-<li><strong>步骤三</strong></li>
+<h4 id="小端序举例"><a href="#小端序举例" class="headerlink" title="小端序举例"></a>小端序举例</h4><ul>
+<li>char a=’A’      41</li>
+<li>char a[]=”pwn”  70 77 6e 00  (‘p’=70,’w’=77,’n’=6e.’\0’=00)</li>
+<li>int a=0x1234    34 12</li>
 </ul>
-<p><img src="https://i.imgur.com/XrZgGhb.png" alt=""></p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>特性：</strong></p>
 <ul>
-<li><strong>步骤四</strong></li>
+<li>先进后出</li>
+<li>从高地址向低地址延伸</li>
 </ul>
-<p><img src="https://i.imgur.com/hMLViwd.png" alt=""></p>
+<p><img src="https://i.imgur.com/fxXYixw.png" alt=""></p>
+<p><strong>作用：</strong></p>
 <ul>
-<li><strong>步骤五</strong></li>
+<li>暂时保存变量</li>
+<li>调用函数时传递参数</li>
+<li>保存函数返回地址</li>
 </ul>
-<p><img src="https://i.imgur.com/5WzINTf.png" alt=""></p>
-<p>可以明显看到当密码为1238输入时反馈明显不同于其它，所以就可以断定这个便是密码。<br>最后将密码输入进去，得到答案。</p>
-<p><img src="https://i.imgur.com/XUUpdJB.png" alt=""></p>
-<p>好了，等我弄懂了另外一道题再来详细解释它吧。<br>未完待续……</p>
+<p><strong>栈帧：栈帧就是利用EBP访问栈内数据</strong><br><img src="https://i.imgur.com/idj3Emp.jpg" alt=""></p>
+<p><strong>调试swap函数并观察栈的变化</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *aa,<span class="keyword">int</span> *bb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> cc=*aa;</span><br><span class="line">	*aa=*bb;</span><br><span class="line">    *bb=cc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">1</span>,b=<span class="number">0</span>;</span><br><span class="line">	swap(&amp;a,&amp;b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先运行到swap(&amp;a,&amp;b)；语句a=1且地址为3572048，b=0且地址为3572032，调用函数并是指针aa指向地址为3572048，指针bb指向3572032，通过cc=<em>aa使cc=1，执行</em>aa=*bb使在地址为3572048值变为0，即a=0，下面同样使b=1完成交换。</p>
+<p>未完待续……</p>
 
       
       
@@ -361,13 +356,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a></p>
+        <p><span>本文标题:</span><a href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
-        <p><span>发布时间:</span>2018年07月03日 - 20时55分</p>
-        <p><span>最后更新:</span>2018年07月04日 - 09时26分</p>
+        <p><span>发布时间:</span>2018年07月04日 - 10时38分</p>
+        <p><span>最后更新:</span>2018年07月04日 - 15时17分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/07/03/爬坑之路--WEB(二)--2/" title="爬坑之路--WEB(二)--2">http://yoursite.com/2018/07/03/爬坑之路--WEB(二)--2/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/07/03/爬坑之路--WEB(二)--2/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/07/04/爬坑之路-BIN(二)--3/" title="爬坑之路--BIN(二)--3">http://yoursite.com/2018/07/04/爬坑之路-BIN(二)--3/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/07/04/爬坑之路-BIN(二)--3/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -380,18 +375,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/07/04/爬坑之路-BIN(二)--3/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/07/05/爬坑之路--汇编语句反推--5/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          爬坑之路--BIN(二)--3
+          爬坑之路--汇编语句反推--5
         
       </div>
     </a>
   
   
-    <a href="/2018/07/03/爬坑之路--WEB(一)--2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">爬坑之路--WEB(一)--2；</div>
+    <a href="/2018/07/03/爬坑之路--WEB(二)--2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">爬坑之路--WEB(二)--2</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -402,7 +397,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">1.</span> <span class="toc-text">例题</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#程序运行原理"><span class="toc-number">1.</span> <span class="toc-text">程序运行原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小端序"><span class="toc-number">2.</span> <span class="toc-text">小端序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单不同类型变量所占字节"><span class="toc-number">2.1.</span> <span class="toc-text">简单不同类型变量所占字节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小端序举例"><span class="toc-number">2.1.1.</span> <span class="toc-text">小端序举例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#栈"><span class="toc-number">3.</span> <span class="toc-text">栈</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -468,13 +463,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/07/04/爬坑之路-BIN(二)--3/" title="上一篇: 爬坑之路--BIN(二)--3">
+            <a href="/2018/07/05/爬坑之路--汇编语句反推--5/" title="上一篇: 爬坑之路--汇编语句反推--5">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2018/07/03/爬坑之路--WEB(一)--2/" title="下一篇: 爬坑之路--WEB(一)--2；">
+            <a href="/2018/07/03/爬坑之路--WEB(二)--2/" title="下一篇: 爬坑之路--WEB(二)--2">
                 <i class="fa fa-angle-right"></i>
             </a>
         
