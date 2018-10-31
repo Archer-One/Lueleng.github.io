@@ -16,7 +16,8 @@
 <meta property="og:image" content="https://i.imgur.com/FVrHxyJ.png">
 <meta property="og:image" content="https://i.imgur.com/ClFsVFq.png">
 <meta property="og:image" content="https://i.imgur.com/viYQMfN.png">
-<meta property="og:updated_time" content="2018-10-31T10:01:29.106Z">
+<meta property="og:image" content="https://i.imgur.com/BPOh9be.png">
+<meta property="og:updated_time" content="2018-10-31T10:12:43.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux 远程连接">
 <meta name="twitter:description" content="linux 远程连接">
@@ -303,7 +304,17 @@
 </ul>
 <h3 id="win10远程连接连接"><a href="#win10远程连接连接" class="headerlink" title="win10远程连接连接"></a>win10远程连接连接</h3><p><img src="https://i.imgur.com/ClFsVFq.png" alt=""></p>
 <h3 id="设置好samba-但是win10无法连接时设置"><a href="#设置好samba-但是win10无法连接时设置" class="headerlink" title="设置好samba 但是win10无法连接时设置"></a>设置好samba 但是win10无法连接时设置</h3><p><img src="https://i.imgur.com/viYQMfN.png" alt=""></p>
-<h2 id="ssh模式连接"><a href="#ssh模式连接" class="headerlink" title="ssh模式连接"></a>ssh模式连接</h2><p>参考网站：<a href="https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html" target="_blank" rel="noopener">https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html</a></p>
+<h2 id="ssh模式连接"><a href="#ssh模式连接" class="headerlink" title="ssh模式连接"></a>ssh模式连接</h2><ul>
+<li><p>首先安装 <strong>openssh-server</strong></p>
+</li>
+<li><p>启动<strong>ssh</strong> /etc/init.d/ssh start</p>
+</li>
+<li><p>下载putty</p>
+</li>
+<li><p>如果出现加载密钥失败 可删除重新生成密钥<br><img src="https://i.imgur.com/BPOh9be.png" alt=""><br>sudo rm -r /etc/ssh/ssh*key<br>sudo dpkg-reconfigure openssh-server </p>
+</li>
+</ul>
+<h3 id="参考网站-1"><a href="#参考网站-1" class="headerlink" title="参考网站"></a>参考网站</h3><p>参考网站：<a href="https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html" target="_blank" rel="noopener">https://www.cnblogs.com/ArsenalfanInECNU/p/5594117.html</a></p>
 
       
       
@@ -362,7 +373,7 @@
         <p><span>本文标题:</span><a href="/2018/10/30/linux-远程连接/">linux 远程连接</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
         <p><span>发布时间:</span>2018年10月30日 - 19时27分</p>
-        <p><span>最后更新:</span>2018年10月31日 - 18时01分</p>
+        <p><span>最后更新:</span>2018年10月31日 - 18时12分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/10/30/linux-远程连接/" title="linux 远程连接">http://yoursite.com/2018/10/30/linux-远程连接/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/30/linux-远程连接/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -400,7 +411,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xrdp-模式远程连接-ubuntu12-04-16-04可用"><span class="toc-number">1.</span> <span class="toc-text">xrdp 模式远程连接(ubuntu12.04,16.04可用)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站"><span class="toc-number">1.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#samba-模式远程连接"><span class="toc-number">2.</span> <span class="toc-text">samba  模式远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-etc-samba-smb-conf配置"><span class="toc-number">2.1.</span> <span class="toc-text">修改/etc/samba/smb.conf配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win10远程连接连接"><span class="toc-number">2.2.</span> <span class="toc-text">win10远程连接连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置好samba-但是win10无法连接时设置"><span class="toc-number">2.3.</span> <span class="toc-text">设置好samba 但是win10无法连接时设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh模式连接"><span class="toc-number">3.</span> <span class="toc-text">ssh模式连接</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xrdp-模式远程连接-ubuntu12-04-16-04可用"><span class="toc-number">1.</span> <span class="toc-text">xrdp 模式远程连接(ubuntu12.04,16.04可用)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站"><span class="toc-number">1.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#samba-模式远程连接"><span class="toc-number">2.</span> <span class="toc-text">samba  模式远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-etc-samba-smb-conf配置"><span class="toc-number">2.1.</span> <span class="toc-text">修改/etc/samba/smb.conf配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win10远程连接连接"><span class="toc-number">2.2.</span> <span class="toc-text">win10远程连接连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置好samba-但是win10无法连接时设置"><span class="toc-number">2.3.</span> <span class="toc-text">设置好samba 但是win10无法连接时设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh模式连接"><span class="toc-number">3.</span> <span class="toc-text">ssh模式连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站-1"><span class="toc-number">3.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
