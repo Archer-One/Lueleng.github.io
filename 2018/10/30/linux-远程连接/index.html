@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://i.imgur.com/ClFsVFq.png">
 <meta property="og:image" content="https://i.imgur.com/viYQMfN.png">
 <meta property="og:image" content="https://i.imgur.com/BPOh9be.png">
-<meta property="og:updated_time" content="2018-10-31T10:12:43.682Z">
+<meta property="og:updated_time" content="2018-11-01T00:48:13.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux 远程连接">
 <meta name="twitter:description" content="linux 远程连接">
@@ -284,7 +284,7 @@
 <ul>
 <li>选择sesman-Xvnc模式，然后输入ubuntu账号密码即可</li>
 </ul>
-<h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p><a href="https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html（发现可以不用安装dconf-editor）" target="_blank" rel="noopener">https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html（发现可以不用安装dconf-editor）</a></p>
+<h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p><a href="https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/5225f26baf6cf3e6fa0908e5.html</a><br>（发现可以不用安装dconf-editor）</p>
 <h2 id="samba-模式远程连接"><a href="#samba-模式远程连接" class="headerlink" title="samba  模式远程连接"></a>samba  模式远程连接</h2><ul>
 <li><p>首先安装 <strong>samba</strong></p>
 </li>
@@ -293,15 +293,12 @@
 <li><p>给这目录添加权限 （sudo chmod 777 /home/android/share）</p>
 </li>
 </ul>
-<h3 id="修改-etc-samba-smb-conf配置"><a href="#修改-etc-samba-smb-conf配置" class="headerlink" title="修改/etc/samba/smb.conf配置"></a>修改<strong>/etc/samba/smb.conf</strong>配置</h3><ul>
-<li>[share] # 该共享的共享名 </li>
-<li>path = /home/android/share # 共享路径 </li>
-<li>guest ok = yes 其实和public是一样的 </li>
-<li>available = yes # 设置该共享目录是否可用 </li>
-<li>browseable = yes # 设置该共享目录是否可显示 </li>
-<li>public = yes # 指明该共享资源是否能给游客帐号访问</li>
-<li>writable = yes # 可写</li>
+<h3 id="修改-etc-samba-smb-conf配置"><a href="#修改-etc-samba-smb-conf配置" class="headerlink" title="修改/etc/samba/smb.conf配置"></a>修改<strong>/etc/samba/smb.conf</strong>配置</h3><p>[share]  #该共享的共享名<br>            comment=smb share test<br>            path = /home/android/share # 共享路径<br>            guest ok = yes #其实和public是一样的<br>            available = yes #设置该共享目录是否可用<br>            browseable = yes #设置该共享目录是否可显示<br>            public = yes  #指明该共享资源是否能给游客帐号访问<br>            writable = yes #可写</p>
+<ul>
+<li>发现配置文件中如果有注释就会报错，所以可以删掉注释</li>
 </ul>
+<p>[share]<br>         comment=smb share test<br>         path = /home/android/share<br>         guest ok = yes<br>         available = yes<br>         public = yes<br>         writable = yes </p>
+<h3 id="命令重启"><a href="#命令重启" class="headerlink" title="命令重启"></a>命令重启</h3><p>sudo service smbd restart</p>
 <h3 id="win10远程连接连接"><a href="#win10远程连接连接" class="headerlink" title="win10远程连接连接"></a>win10远程连接连接</h3><p><img src="https://i.imgur.com/ClFsVFq.png" alt=""></p>
 <h3 id="设置好samba-但是win10无法连接时设置"><a href="#设置好samba-但是win10无法连接时设置" class="headerlink" title="设置好samba 但是win10无法连接时设置"></a>设置好samba 但是win10无法连接时设置</h3><p><img src="https://i.imgur.com/viYQMfN.png" alt=""></p>
 <h2 id="ssh模式连接"><a href="#ssh模式连接" class="headerlink" title="ssh模式连接"></a>ssh模式连接</h2><ul>
@@ -373,7 +370,7 @@
         <p><span>本文标题:</span><a href="/2018/10/30/linux-远程连接/">linux 远程连接</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
         <p><span>发布时间:</span>2018年10月30日 - 19时27分</p>
-        <p><span>最后更新:</span>2018年10月31日 - 18时12分</p>
+        <p><span>最后更新:</span>2018年11月01日 - 08时48分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/10/30/linux-远程连接/" title="linux 远程连接">http://yoursite.com/2018/10/30/linux-远程连接/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/30/linux-远程连接/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -411,7 +408,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xrdp-模式远程连接-ubuntu12-04-16-04可用"><span class="toc-number">1.</span> <span class="toc-text">xrdp 模式远程连接(ubuntu12.04,16.04可用)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站"><span class="toc-number">1.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#samba-模式远程连接"><span class="toc-number">2.</span> <span class="toc-text">samba  模式远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-etc-samba-smb-conf配置"><span class="toc-number">2.1.</span> <span class="toc-text">修改/etc/samba/smb.conf配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win10远程连接连接"><span class="toc-number">2.2.</span> <span class="toc-text">win10远程连接连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置好samba-但是win10无法连接时设置"><span class="toc-number">2.3.</span> <span class="toc-text">设置好samba 但是win10无法连接时设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh模式连接"><span class="toc-number">3.</span> <span class="toc-text">ssh模式连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站-1"><span class="toc-number">3.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xrdp-模式远程连接-ubuntu12-04-16-04可用"><span class="toc-number">1.</span> <span class="toc-text">xrdp 模式远程连接(ubuntu12.04,16.04可用)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站"><span class="toc-number">1.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#samba-模式远程连接"><span class="toc-number">2.</span> <span class="toc-text">samba  模式远程连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改-etc-samba-smb-conf配置"><span class="toc-number">2.1.</span> <span class="toc-text">修改/etc/samba/smb.conf配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令重启"><span class="toc-number">2.2.</span> <span class="toc-text">命令重启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win10远程连接连接"><span class="toc-number">2.3.</span> <span class="toc-text">win10远程连接连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置好samba-但是win10无法连接时设置"><span class="toc-number">2.4.</span> <span class="toc-text">设置好samba 但是win10无法连接时设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh模式连接"><span class="toc-number">3.</span> <span class="toc-text">ssh模式连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站-1"><span class="toc-number">3.1.</span> <span class="toc-text">参考网站</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
