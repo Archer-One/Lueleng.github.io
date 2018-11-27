@@ -321,171 +321,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <!--moer-->
-<h2 id="设置objdump-Intel-格式非AT-amp-T"><a href="#设置objdump-Intel-格式非AT-amp-T" class="headerlink" title="设置objdump Intel 格式非AT&amp;T"></a>设置objdump Intel 格式非AT&amp;T</h2><ul>
-<li>alias objdump=’objdump -M intel’</li>
+              <ul>
+<li>草稿</li>
 </ul>
-<h2 id="找func在libc中的offset"><a href="#找func在libc中的offset" class="headerlink" title="找func在libc中的offset"></a>找func在libc中的offset</h2><h2 id="Stack-Overflow-and-ROP"><a href="#Stack-Overflow-and-ROP" class="headerlink" title="Stack Overflow and ROP"></a>Stack Overflow and ROP</h2><h3 id="Shellcode-的限制"><a href="#Shellcode-的限制" class="headerlink" title="Shellcode 的限制"></a>Shellcode 的限制</h3><ul>
-<li>Shellcode在现今大部分*86的系统上都不能直接跑。就算已经控制了程序本身也不能直接跳到shellcode上。因为有DEP，放在data buffer里的shellcode并没有可执行的权限。</li>
-<li>有部分shellcode可以执行的情况，gcc编译时要加 -z execstack参数，或者直接用vmmap开出可执行的buffer</li>
-</ul>
-<h3 id="Return-Oriented-Programming"><a href="#Return-Oriented-Programming" class="headerlink" title="Return Oriented Programming"></a>Return Oriented Programming</h3><ul>
-<li>ROP是一种利用现有的程序片段组合出想要功能的技巧。</li>
-<li>因为使用的是现存的程序，本来就可以执行，不会被DEP阻挡。但可以组出的功能也会有所限制。</li>
-<li>可以使用ROP解除DEP，再跳到shellcode执行。</li>
-</ul>
-<h3 id="Ret-Programming"><a href="#Ret-Programming" class="headerlink" title="Ret Programming"></a>Ret Programming</h3><ul>
-<li>控制ROP行为的code是[stack上排列的内容]</li>
-<li>Gadget:一小段以ret结尾的code</li>
-<li>ROP:串联gadget形成的ROP chain，组合出需要的功能    </li>
-</ul>
-<h3 id="ROP类型"><a href="#ROP类型" class="headerlink" title="ROP类型"></a>ROP类型</h3><ul>
-<li>使用register做syscall</li>
-<li>使用原程序里有点function</li>
-<li>使用libc里的gadget或function</li>
-</ul>
-<h3 id="trick"><a href="#trick" class="headerlink" title="trick"></a>trick</h3><ul>
-<li>execve需要字串/bin/sh,且位置要已知</li>
-<li>先用read吧需要的字串输入至已知位置的buffer上</li>
-<li>输入时如果/bin/sh后不能有其他字段可用00截断，<font color="#FF7F50"><strong>/bin/sh\x00</strong></font></li>
-<li>寻找gadget: int 0x80,ret。 ROPgadget –binary 文件名 –opcode cd80c3<h4 id="register调用read"><a href="#register调用read" class="headerlink" title="register调用read"></a>register调用read</h4></li>
-<li>eax=3 </li>
-<li>ebx=0</li>
-<li>ecx=buf_addr</li>
-<li>edx=length</li>
-<li>int0x80_ret </li>
-</ul>
-<h3 id="migration-stack"><a href="#migration-stack" class="headerlink" title="migration stack"></a>migration stack</h3><p>migration = p32(pop_ebp_ret) + p32(buf-4) + p32(pop_eax_ret) + buf + p32(gadaget1)+p32(leave_ret）</p>
-<ul>
-<li>控制好esp,使esp的值为buf,但是因为leave有pop ebp操作会导致ebp+4，所以传进去时先-4 </li>
-</ul>
-<h4 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h4><pre><code>rop1=[
-puts,     //来泄露出main_got中的地址
-pop_ebp_ret,  //要return的地址   
-libc_start_main_got, //puts要泄露的字串地址  
-gets,        //读取rop2
-pop_ebp_ret,  //要return的地址
-buf,        //将rop2读取到buf上
-pop_ebp_ret, //将ebp=buf-4
-buf-4，
-leave_ret,  //mov esp,ebp //esp=buf-4，pop esp //esp=esp+4=buf, ret //返回esp指向的位置
-]     
-r.sendline(&apos;A&apos;*offset+&apos;&apos;.join(map(p32,rop1)))
-
-rop2 =[
-gets,        //
-system,         // gets返回地址
-buf2,        // gets 写入的地方,也可当做system返回地址(无用)
-buf2         // system参数
-]
-</code></pre><h3 id="Dynamically-Linked-ELF相关操作"><a href="#Dynamically-Linked-ELF相关操作" class="headerlink" title="Dynamically Linked ELF相关操作"></a>Dynamically Linked ELF相关操作</h3><pre><code>ldd ./binary  
-得知libc的相关路径
-readelf -s/lib32/libc.so.6  检查libc里的symbol
-LD_LIBRARY_PATH=. ldd ./文件名  指定要载入的libc]
-</code></pre><h3 id="帮忙寻找libc的版本"><a href="#帮忙寻找libc的版本" class="headerlink" title="帮忙寻找libc的版本"></a>帮忙寻找libc的版本</h3><ul>
-<li><font color="#FF7F50">libcdb.com</font>
-
-</li>
-</ul>
-<h3 id="ROP-for-x86-64"><a href="#ROP-for-x86-64" class="headerlink" title="ROP for x86-64"></a>ROP for x86-64</h3><h4 id="64-bit-ROP"><a href="#64-bit-ROP" class="headerlink" title="64-bit ROP"></a>64-bit ROP</h4><ul>
-<li>syscall要用rax,rdi,rsi,rdx,rcx,r8,r9,syscall</li>
-<li>Function call 参数传递使用register<ul>
-<li>rdi,rsi,rdx,rcx,r8,r9</li>
-</ul>
-</li>
-<li>需要用<strong>pop-ret</strong>控制<strong>register</strong>,再接<strong>function address</strong>  </li>
-<li><pre><code>&lt;pop rdi; ret&gt;    
-0  
-&lt;pop rsi; ret&gt;  
-buf  
-&lt;pop rdx; ret&gt;  
-100
-&lt;read&gt;  
-... next gadget
-</code></pre></li>
-</ul>
-<h4 id="64-bit-Register"><a href="#64-bit-Register" class="headerlink" title="64-bit Register"></a>64-bit Register</h4><ul>
-<li>rax,rcx,rdx,rbx,rsp,rbp,rsi,rdi</li>
-<li>r8 - r15是用前8个加上REX prefix来表示的</li>
-<li>r12 - r15是callee saved,所以pop r12 - r15在function return前很常见</li>
-<li>pop r14 = 415e/pop rsi =5e</li>
-<li>pop r15 = 415e/pop rdi =5f</li>
-</ul>
-<h4 id="控制rdx"><a href="#控制rdx" class="headerlink" title="控制rdx"></a>控制rdx</h4><ul>
-<li>先在某个buffer上放上一个pop_rXX-ret gadget的位置,控制r13的值、r12指向gaibuffer、rdx设成0</li>
-<li>pop_rXX会情调call的return address，之后再ret下一个gadget<h4 id="控制rax"><a href="#控制rax" class="headerlink" title="控制rax"></a>控制rax</h4></li>
-<li>用函数的回赋值来控值<ul>
-<li>gets，fgets回赋buffer(rax=rdi)</li>
-<li>strcpy，strncp</li>
-<li>alarm(连续call两次alarm,第二次会ret回第一次传入的参数)<h4 id="控制rcx"><a href="#控制rcx" class="headerlink" title="控制rcx"></a>控制rcx</h4></li>
-</ul>
-</li>
-<li>很少会需要</li>
-<li>没有通用gadget</li>
-<li>通常会call function看看会对rcx造成什么样的印象<ul>
-<li>例如strcpy可能会让ecx=输入字串<h4 id="将rax写入到memory"><a href="#将rax写入到memory" class="headerlink" title="将rax写入到memory"></a>将rax写入到memory</h4></li>
-</ul>
-</li>
-<li>如果GOT可写，先填好<a href="mailto:_libc_start_main@got.plt" target="_blank" rel="noopener">_libc_start_main@got.plt</a>再跳</li>
-</ul>
-<h4 id="ROPgadget"><a href="#ROPgadget" class="headerlink" title="ROPgadget"></a>ROPgadget</h4><ul>
-<li><p>ROPgadget预设的搜索长度对64bit莱索不太够  </p>
-<pre><code>ROPgadget --binary ./b --depth 100
-</code></pre><h4 id="通用gadget"><a href="#通用gadget" class="headerlink" title="通用gadget"></a>通用gadget</h4></li>
-<li>64bitROP需要gadget来控制参数</li>
-<li>gcc产生的函数中有一些片段是一定会有的，可以用来做ROP，通常要够着ret2lib不是问题</li>
-<li>以gcc&gt;=4.8,久一点版本有些gadget会不太一样</li>
-</ul>
-<h3 id="De-ASLR-with-ROP"><a href="#De-ASLR-with-ROP" class="headerlink" title="De-ASLR with ROP"></a>De-ASLR with ROP</h3><ul>
-<li>Calculate Function Address without Information Leakage</li>
-</ul>
-<h4 id="在无法泄漏时算出函数位置"><a href="#在无法泄漏时算出函数位置" class="headerlink" title="在无法泄漏时算出函数位置"></a>在无法泄漏时算出函数位置</h4><ul>
-<li>实际上很多漏洞利用的情境中，是没有办法leak memory，再送第二次ROP的<ul>
-<li>EX.Web server,browser</li>
-</ul>
-</li>
-<li>Function offset 有可能已知，因为平台就那几种，libc版本可以猜</li>
-<li>在没有信息泄露的情况下，只送一次payload，算出system的address然后呼叫</li>
-</ul>
-<h4 id="dl-runtime-resolve"><a href="#dl-runtime-resolve" class="headerlink" title="_dl_runtime_resolve?"></a>_dl_runtime_resolve?</h4><ul>
-<li>有一种ROP的技巧，是让lazy binding函数被解析时得到错误的address</li>
-<li>但有一些使用限制，RELRO保护区那开始(应该)没办法用</li>
-</ul>
-<h4 id="ROP流程"><a href="#ROP流程" class="headerlink" title="ROP流程"></a>ROP流程</h4><ul>
-<li>想办法从got.plt上捞东西出来(base)</li>
-<li>把捞出来的东西加上offset(base+offset)</li>
-<li>放回memory再call它</li>
-</ul>
-<h4 id="从got-plt上取值"><a href="#从got-plt上取值" class="headerlink" title="从got.plt上取值"></a>从got.plt上取值</h4><ul>
-<li>使用pop_rsp_r13_r14_r15_ret,暂时把stack移动到got上，用pop把值拿出来</li>
-<li>在最后ret对应的格子上，预先填好leave_ret;并在一开始就先设好rbp准备好migrated stack</li>
-<li>取出的base在r13上</li>
-<li>got.plt在FULL RELRO下是唯读的</li>
-</ul>
-<h4 id="先把base转到rbx"><a href="#先把base转到rbx" class="headerlink" title="先把base转到rbx"></a>先把base转到rbx</h4><ul>
-<li>call_libc_csu_init<ul>
-<li>基本上是个什么都不做的函数</li>
-<li>但这个函数使用了rbx,r12-r15,所以会把值push在stack上</li>
-</ul>
-</li>
-<li>对好位置接上pop rbx,就可以把原本在r13的值转移到rbx</li>
-</ul>
-<h4 id="取得base在中rbx加offset"><a href="#取得base在中rbx加offset" class="headerlink" title="取得base在中rbx加offset"></a>取得base在中rbx加offset</h4><ul>
-<li>add ebx esi； ret； = 01 f3 c3</li>
-<li>有mov cs:__bss_start,1就会有这个gadget</li>
-<li>ebx=ebx+esi(offset)</li>
-<li>再用csu_init把ebx放回memory<h4 id="补上High-4bytes-Address"><a href="#补上High-4bytes-Address" class="headerlink" title="补上High 4bytes Address"></a>补上High 4bytes Address</h4></li>
-<li>前面的做法最后只有ebx(low part)被放到memory上</li>
-<li>再重做一次，去拿base的high part<ul>
-<li>stack可以不是8byte-aligned(对齐)，歪4byte去拿gets@got的high part</li>
-<li>最后 push rbx时也要歪，这样就可以接在之前push rbx的后4byte</li>
-</ul>
-</li>
-</ul>
-<h3 id="Demo1"><a href="#Demo1" class="headerlink" title="Demo1"></a>Demo1</h3><ul>
-<li>(gcc demo1.c -o demo1 -fno-stack-protector -Wl,-z,relro,-z,now)</li>
-</ul>
-
+          
       
       
     </div>
@@ -495,6 +334,10 @@ buf
       
 
       
+      
+        <p class="article-more-link">
+          <a  href="/2018/11/13/pwn-3/#more">大航海 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
