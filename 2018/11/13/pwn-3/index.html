@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="JXF">
 <meta property="og:description" content="草稿">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-27T09:33:47.195Z">
+<meta property="og:updated_time" content="2018-11-29T15:53:40.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pwn-3">
 <meta name="twitter:description" content="草稿">
@@ -358,7 +358,9 @@ buf
 </ul>
 <h4 id="控制rdx"><a href="#控制rdx" class="headerlink" title="控制rdx"></a>控制rdx</h4><ul>
 <li>先在某个buffer上放上一个pop_rXX-ret gadget的位置,控制r13的值、r12指向gaibuffer、rdx设成0</li>
-<li>pop_rXX会情调call的return address，之后再ret下一个gadget<h4 id="控制rax"><a href="#控制rax" class="headerlink" title="控制rax"></a>控制rax</h4></li>
+<li>pop_rXX会情调call的return address，之后再ret下一个gadget</li>
+</ul>
+<h4 id="控制rax"><a href="#控制rax" class="headerlink" title="控制rax"></a>控制rax</h4><ul>
 <li>用函数的回赋值来控值<ul>
 <li>gets，fgets回赋buffer(rax=rdi)</li>
 <li>strcpy，strncp</li>
@@ -488,7 +490,7 @@ buf
         <p><span>本文标题:</span><a href="/2018/11/13/pwn-3/">pwn-3</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
         <p><span>发布时间:</span>2018年11月13日 - 21时15分</p>
-        <p><span>最后更新:</span>2018年11月27日 - 17时33分</p>
+        <p><span>最后更新:</span>2018年11月29日 - 23时53分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/13/pwn-3/" title="pwn-3">http://yoursite.com/2018/11/13/pwn-3/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/13/pwn-3/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -603,7 +605,7 @@ buf
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/Gets!!!/">Getshexo d!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/25/简单write/">简单write</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/13/pwn-3/">pwn-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/31/pwn-2/">pwn-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/30/linux-远程连接/">linux 远程连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/07/pwn-1/">Pwn-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/19/believeme/">believeme</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/Linux语法基础/">Linux语法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/10/爬坑之路--WEB(五)--10/">爬坑之路--WEB(五)--10</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/爬坑之路--BIN(五)--9/">爬坑之路--BIN(五)--9</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/爬坑之路--BIN(四)--7/">“爬坑之路--BIN(四)--7</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/爬坑之路--WEB(四)--6/">爬坑之路--WEB(四)--6</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/05/爬坑之路--BIN(三)--5/">爬坑之路--BIN(三)--5</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(一)--2/">爬坑之路--WEB(一)--2；</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/01/爬坑之路--BIN(一)--1/">爬坑之路--BIN(一)--1.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/My-First-Hexo-Blog/">My First Hexo Blog</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/Gets!!!/">Only Gets Can Use!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/25/简单write/">简单write</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/13/pwn-3/">pwn-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/31/pwn-2/">pwn-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/30/linux-远程连接/">linux 远程连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/07/pwn-1/">Pwn-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/19/believeme/">believeme</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/Linux语法基础/">Linux语法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/10/爬坑之路--WEB(五)--10/">爬坑之路--WEB(五)--10</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/爬坑之路--BIN(五)--9/">爬坑之路--BIN(五)--9</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/爬坑之路--BIN(四)--7/">“爬坑之路--BIN(四)--7</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/爬坑之路--WEB(四)--6/">爬坑之路--WEB(四)--6</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/05/爬坑之路--BIN(三)--5/">爬坑之路--BIN(三)--5</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(一)--2/">爬坑之路--WEB(一)--2；</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/01/爬坑之路--BIN(一)--1/">爬坑之路--BIN(一)--1.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/My-First-Hexo-Blog/">My First Hexo Blog</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
