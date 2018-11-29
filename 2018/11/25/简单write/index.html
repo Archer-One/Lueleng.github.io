@@ -5,12 +5,12 @@
   
   <title>简单write | JXF</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到https://github.com/Lueleng/PwnDemo">
+  <meta name="description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到  https://github.com/Lueleng/PwnDemo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单write">
 <meta property="og:url" content="http://yoursite.com/2018/11/25/简单write/index.html">
 <meta property="og:site_name" content="JXF">
-<meta property="og:description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到https://github.com/Lueleng/PwnDemo">
+<meta property="og:description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到  https://github.com/Lueleng/PwnDemo">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/简单write/img/write/1.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/简单write/img/write/3.png">
@@ -21,10 +21,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/25/简单write/img/write/7.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/简单write/img/write/8.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/25/简单write/img/write/9.png">
-<meta property="og:updated_time" content="2018-11-27T13:08:38.167Z">
+<meta property="og:updated_time" content="2018-11-29T13:33:29.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单write">
-<meta name="twitter:description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到https://github.com/Lueleng/PwnDemo">
+<meta name="twitter:description" content="简单fmtstr 绕过canary 简单migration Demo和EXP可在仓库中找到  https://github.com/Lueleng/PwnDemo">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/25/简单write/img/write/1.png">
   
     <link rel="alternative" href="/atom.xml" title="JXF" type="application/atom+xml">
@@ -277,8 +277,9 @@
 <li>简单fmtstr</li>
 <li>绕过canary</li>
 <li>简单migration</li>
-<li>Demo和EXP可在仓库中找到<br><a href="https://github.com/Lueleng/PwnDemo" target="_blank" rel="noopener">https://github.com/Lueleng/PwnDemo</a></li>
+<li>Demo和EXP可在仓库中找到</li>
 </ul>
+<p><a href="https://github.com/Lueleng/PwnDemo" target="_blank" rel="noopener">https://github.com/Lueleng/PwnDemo</a></p>
 <a id="more"></a>
 <h2 id="format-str"><a href="#format-str" class="headerlink" title="format str"></a>format str</h2><h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">200</span>];</span><br><span class="line">	<span class="keyword">while</span>(fgets(str,<span class="keyword">sizeof</span>(str),<span class="built_in">stdin</span>))&#123;</span><br><span class="line">		<span class="built_in">printf</span>(str);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
@@ -289,12 +290,12 @@
 <h3 id="Canary"><a href="#Canary" class="headerlink" title="Canary"></a>Canary</h3><h4 id="Canary实质"><a href="#Canary实质" class="headerlink" title="Canary实质"></a>Canary实质</h4><ul>
 <li>函数运行时在某个栈上存放一个随机生成数，当要执行ret语句前要先check该特定栈上的值是否与原来相等，如果不相等说明有栈溢出，该程序结束。</li>
 </ul>
-<p><img src=".\img\write\3.png" alt=""></p>
-<h4 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h4><p><img src=".\img\write\2.png" alt=""></p>
+<p><img src="./img/write/3.png" alt=""></p>
+<h4 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h4><p><img src="./img/write/2.png" alt=""></p>
 <ul>
 <li>开启了NX和canary</li>
 </ul>
-<h4 id="ide反编译"><a href="#ide反编译" class="headerlink" title="ide反编译"></a>ide反编译</h4><p><img src=".\img\write\4.png" alt=""></p>
+<h4 id="ide反编译"><a href="#ide反编译" class="headerlink" title="ide反编译"></a>ide反编译</h4><p><img src="./img/write/4.png" alt=""></p>
 <ul>
 <li>发现是两次输入输出操作</li>
 </ul>
@@ -376,7 +377,7 @@
         <p><span>本文标题:</span><a href="/2018/11/25/简单write/">简单write</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Fake Student 的个人博客">Fake Student</a></p>
         <p><span>发布时间:</span>2018年11月25日 - 20时51分</p>
-        <p><span>最后更新:</span>2018年11月27日 - 21时08分</p>
+        <p><span>最后更新:</span>2018年11月29日 - 21时33分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/25/简单write/" title="简单write">http://yoursite.com/2018/11/25/简单write/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/11/25/简单write/　　作者: Fake Student" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -391,6 +392,15 @@
 
 
 <nav id="article-nav">
+  
+    <a href="/2018/11/29/Gets!!!/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Getshexo d!
+        
+      </div>
+    </a>
   
   
     <a href="/2018/11/13/pwn-3/" id="article-nav-older" class="article-nav-link-wrap">
@@ -471,7 +481,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2018/11/29/Gets!!!/" title="上一篇: Getshexo d!">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
@@ -480,7 +492,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/11/25/简单write/">简单write</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/13/pwn-3/">pwn-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/31/pwn-2/">pwn-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/30/linux-远程连接/">linux 远程连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/07/pwn-1/">Pwn-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/19/believeme/">believeme</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/Linux语法基础/">Linux语法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/10/爬坑之路--WEB(五)--10/">爬坑之路--WEB(五)--10</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/爬坑之路--BIN(五)--9/">爬坑之路--BIN(五)--9</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/爬坑之路--BIN(四)--7/">“爬坑之路--BIN(四)--7</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/爬坑之路--WEB(四)--6/">爬坑之路--WEB(四)--6</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/05/爬坑之路--BIN(三)--5/">爬坑之路--BIN(三)--5</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(一)--2/">爬坑之路--WEB(一)--2；</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/01/爬坑之路--BIN(一)--1/">爬坑之路--BIN(一)--1.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/My-First-Hexo-Blog/">My First Hexo Blog</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/11/29/Gets!!!/">Getshexo d!</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/25/简单write/">简单write</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/13/pwn-3/">pwn-3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/31/pwn-2/">pwn-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/30/linux-远程连接/">linux 远程连接</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/07/pwn-1/">Pwn-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/19/believeme/">believeme</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/12/Linux语法基础/">Linux语法基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/10/爬坑之路--WEB(五)--10/">爬坑之路--WEB(五)--10</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/09/爬坑之路--BIN(五)--9/">爬坑之路--BIN(五)--9</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/08/爬坑之路--BIN(四)--7/">“爬坑之路--BIN(四)--7</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/07/爬坑之路--WEB(四)--6/">爬坑之路--WEB(四)--6</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/05/爬坑之路--BIN(三)--5/">爬坑之路--BIN(三)--5</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/爬坑之路-BIN(二)--3/">爬坑之路--BIN(二)--3</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(二)--2/">爬坑之路--WEB(二)--2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/03/爬坑之路--WEB(一)--2/">爬坑之路--WEB(一)--2；</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/01/爬坑之路--BIN(一)--1/">爬坑之路--BIN(一)--1.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/My-First-Hexo-Blog/">My First Hexo Blog</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/30/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
