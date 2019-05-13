@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Heap Exploitation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="week 10">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/week-10/index.html">
+<meta property="og:site_name" content="Archer">
+<meta property="og:description" content="Heap Exploitation">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T04:06:01.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="week 10">
+<meta name="twitter:description" content="Heap Exploitation">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/02/week-10/"/>
+
+
+
+
+
+  <title>week 10 | Archer</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Archer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/week-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fake Student">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Archer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">week 10</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-02T15:55:37+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Heap Exploitation<br><a id="more"></a></p>
+<h2 id="Glibc-Heap-Overview"><a href="#Glibc-Heap-Overview" class="headerlink" title="Glibc Heap Overview"></a>Glibc Heap Overview</h2><ul>
+<li>负责维护动态配置记忆体的资料结构成为heap</li>
+<li>Libc里比较常用的部分是malloc，free，realloc<ul>
+<li>C++的new，delete，底下的实作仍是上述的几个</li>
+</ul>
+</li>
+<li>配置新记忆体、释放并回收不需要的部分，在配置记忆体的时候尽量避免[碎片化]<h3 id="Heap相关的漏洞利用"><a href="#Heap相关的漏洞利用" class="headerlink" title="Heap相关的漏洞利用"></a>Heap相关的漏洞利用</h3></li>
+<li>Use after free</li>
+<li>Double free</li>
+<li>Heap overflow<h3 id="Glibc-Heap是做概况"><a href="#Glibc-Heap是做概况" class="headerlink" title="Glibc Heap是做概况"></a>Glibc Heap是做概况</h3></li>
+<li><p>要做到记忆体的管理，需要知道</p>
+<ul>
+<li>有哪些位置的记忆体是可以被分配的</li>
+<li>有哪些是因为free掉而可以回收的</li>
+<li>有哪些位置是使用中则不需要记录，使用它们的人应该记住这些指标</li>
+<li>整个Heap的资料记录在一个struct malloc_state中，成为main_arena</li>
+<li>malloc分配的记忆体成为chunk，会比要求的大小要大一点，因为需要记录一些维护heap用的额外资料</li>
+<li>Arena跟h eap分配的记忆体分开存放，heap overflow没办法直接去盖掉它的内容</li>
+<li>回收的chunk用linked list记录，称为bin</li>
+<li>main_arena中有很多bin，每个bin里存储的chunk size不同，目的是让malloc时可以尽快找到最适合大小的chunk</li>
+<li><p>回收的chunk会依据size来决定应该放进哪个linked list(bin)中<br>main_arena{</p>
+<pre><code>bin[0] (size=16) -&gt; chunk1 -&gt; chunk5
+
+bin[1] (size=32) -&gt; chunk2 -&gt; chunk3 -&gt;chunk4
+
+bin[2] (size=48) -&gt;
+</code></pre><p>  }</p>
+</li>
+<li>malloc时，会先从bin里面找出可以使用的chunk，如果找不到才会真的分配新的记忆体给程序使用。分配时可以去找到足够大的chunk只切出需要的部分，剩下的部分形成新的chunk(last_remainder)</li>
+<li>找不到可用空间时会从top chunk分配，top chunk是一个很大的chunk，代表可使用但未分配的记忆体，malloc分配时会从里面切一小块下来，剩下来的部分重新设为top<br>  main_arena{<pre><code>mchunkptr top -&gt; top_chunk;
+mchunkptr last_remainder;
+</code></pre>  }<h4 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk"></a>Chunk</h4></li>
+</ul>
+</li>
+<li>存放chunk metadata的chunk结构(header)<br>  struct malloc_chunk{<pre><code>size_t prev_size;
+size_t size;
+malloc_chunk* fd;
+malloc_chunk* bk;
+malloc_chunk* fd_nextsize;
+malloc_chunk* bk_nextsize;
+</code></pre>  }</li>
+<li>(64bit): mem = malloc(size)<br>  -&gt; chunk = mem -16; chunksize = (size+8)#16<ul>
+<li>实际chunk位置是malloc得到的位置-16</li>
+<li>chunksize是size +8后向上对齐至16的倍数，因为要存放额外的资料<h4 id="Chunk-Header-栏位"><a href="#Chunk-Header-栏位" class="headerlink" title="Chunk Header 栏位"></a>Chunk Header 栏位</h4></li>
+</ul>
+</li>
+<li>size:这个chunk在记忆体里的大小，非malloc size</li>
+<li>fd，bk:指向bin里的前一、后一个chunk<ul>
+<li>一般来说bin是double linked list</li>
+</ul>
+</li>
+<li>prev_size:前一个chunk size，维护heap时可以得知前一个chunk的位置</li>
+<li>概略来说，每个chunk可以看到四个相邻的chunk<ul>
+<li>chunk + size:记忆体空间里的下一个chunk</li>
+<li>chunk - prev_size:记忆体空间里的前一个chunk</li>
+<li>fd,bk:Double linked list(bin),在记忆体中不一定是在前或后</li>
+</ul>
+</li>
+</ul>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><h4 id="heap-c"><a href="#heap-c" class="headerlink" title="heap.c"></a>heap.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">Malloc</span><span class="params">(<span class="keyword">size_t</span> sz)</span></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *p=<span class="built_in">malloc</span>(sz);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p = malloc(%ld)\n"</span>,p,sz);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Free</span><span class="params">(<span class="keyword">void</span> p)</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"free(%p)\n"</span>,p);</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *p,*q,*r,*s;</span><br><span class="line">    p=<span class="built_in">malloc</span>(<span class="number">150</span>);</span><br><span class="line">    q=<span class="built_in">malloc</span>(<span class="number">150</span>);</span><br><span class="line">    r=mallco(<span class="number">150</span>);</span><br><span class="line">    s=<span class="built_in">malloc</span>(<span class="number">150</span>);</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="built_in">free</span>(r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Exploit-Use-After-Free"><a href="#Exploit-Use-After-Free" class="headerlink" title="Exploit: Use After Free"></a>Exploit: Use After Free</h4><ul>
+<li>跟chunk，bin等heap的内内部操作</li>
+<li>让程序有两个指标指向同一个记忆体<ul>
+<li>一块是structure，另一块是用作data buffer</li>
+<li>利用对buffer的读写，修改或泄露structure的内容</li>
+</ul>
+</li>
+</ul>
+<h4 id="利用Chunk的回收特性"><a href="#利用Chunk的回收特性" class="headerlink" title="利用Chunk的回收特性"></a>利用Chunk的回收特性</h4><ul>
+<li>所谓的use after free，是指free(=p)掉后还继续使用它<ul>
+<li>例：linked list remove掉物件后，忘了把指向它的指针清NULL，导致以为此物件还存在list中</li>
+</ul>
+</li>
+<li>重新malloc(=q)一样的大小，会拿到曾经free掉的chunk，此时就存在两个指针p，q指向同一快记忆体，使用这两个指针的操作会混在一起<ul>
+<li>例：其中一个是C++物件，有个vtable指针用来找出实际的function。如果另一个是可写入的data buffer，就可以改掉function pointer</li>
+</ul>
+</li>
+<li>只要实际的chunk size相同，malloc要求的大小不同也没关系</li>
+<li>会拿出哪个chunk，取决于heap里bin的运作方式，不一定是最近free的那一个</li>
+</ul>
+<h2 id="Fastbin"><a href="#Fastbin" class="headerlink" title="Fastbin"></a>Fastbin</h2><ul>
+<li>Chunk size&lt;= get_max_fast()的chunk，会被放在一系列称为fastbin的bin里<ul>
+<li>64bit是128bytes，32bit是64bytes</li>
+<li>global_max_fast一开始是0</li>
+</ul>
+</li>
+<li>Fastbin是single linked list，只使用fd，以NULL结尾</li>
+<li>Chunk size从32开始，共7个可用的fastbin</li>
+<li>free是不取消下个chunk的prev_inuse bit,因为fastbin chunk不会和其它chunk合并</li>
+<li>malloc、free操作时glibc会有一些检查，确认heapp metadata是否正确，避免一些可能的攻击方式</li>
+<li>为了执行效率，fastbin里的检查比其它类型的bin少很多</li>
+</ul>
+<h3 id="Fastbin-Corruption"><a href="#Fastbin-Corruption" class="headerlink" title="Fastbin Corruption"></a>Fastbin Corruption</h3><ul>
+<li>让fastbin linked list指向任意位置，之后malloc时就会将该位置作为chunk拿出来</li>
+<li>Freed(not inuse)chunk才会在bin里，修改它的fd才会造成corruption<ul>
+<li>Double free</li>
+<li>Overflow<h3 id="Fastbin-Sanity-Check"><a href="#Fastbin-Sanity-Check" class="headerlink" title="Fastbin Sanity Check"></a>Fastbin Sanity Check</h3></li>
+</ul>
+</li>
+<li>malloc从bin里取出时，要从正确的bin里拿出来，及chunk size要正确</li>
+<li>free时，nextchunk的size要对</li>
+<li>free时会检查bin里第一个chunk是不是跟现在这个要free的这一个相同(fasttop)</li>
+</ul>
+<h3 id="Overflow-Freed-chunk"><a href="#Overflow-Freed-chunk" class="headerlink" title="Overflow Freed chunk"></a>Overflow Freed chunk</h3><ul>
+<li>如果有heap overflow，可以覆盖下个chunk的fd指标</li>
+<li>先free掉下一个chunk再进行overflow</li>
+<li>Overflow时要注意下个chunk的size是否正确</li>
+</ul>
+<h4 id="fastbin2-c"><a href="#fastbin2-c" class="headerlink" title="fastbin2.c"></a>fastbin2.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">(<span class="keyword">char</span> *cmd)</span></span>&#123;</span><br><span class="line">    system(cmd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, _IONBF,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> cmd, idx, sz;</span><br><span class="line">    <span class="keyword">char</span>* ptr[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">memset</span>(ptr, <span class="number">0</span>, <span class="keyword">sizeof</span>(ptr));</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"1. malloc + gets\n2. free\n3. puts"</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"&gt;"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;cmd, &amp;idx);</span><br><span class="line">        idx %=<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(cmd==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;sz);</span><br><span class="line">            ptr[idx] = <span class="built_in">malloc</span>(sz);</span><br><span class="line">            gets(ptr[idx]);</span><br><span class="line">        &#125;   <span class="keyword">else</span> <span class="keyword">if</span> (cmd==<span class="number">2</span>) &#123;</span><br><span class="line">            <span class="built_in">free</span>(ptr[idx]);</span><br><span class="line">	    ptr[idx]=<span class="number">0</span>;</span><br><span class="line">        &#125;   <span class="keyword">else</span> <span class="keyword">if</span>(cmd ==<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="built_in">puts</span>(ptr[idx]);</span><br><span class="line">        &#125;   <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Free-Arbitrary-Address（House-of-Spirit）"><a href="#Free-Arbitrary-Address（House-of-Spirit）" class="headerlink" title="Free Arbitrary Address（House of Spirit）"></a>Free Arbitrary Address（House of Spirit）</h3><ul>
+<li>其它overflow可以改掉一个原本由malloc得到的指标p，free(p)时会使得被改掉的指标进入fastbin，下次malloc时就会拿到</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line"><span class="keyword">char</span>* ptr[<span class="number">8</span>];</span><br><span class="line"><span class="keyword">char</span>* cmd;</span><br><span class="line"><span class="keyword">int</span> size;</span><br><span class="line"><span class="keyword">int</span> n=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">(<span class="keyword">char</span> *c)</span></span>&#123;</span><br><span class="line">    system(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(ptr,<span class="number">0</span>,<span class="keyword">sizeof</span>(ptr));</span><br><span class="line">    cmd=buf;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        fgets(cmd,<span class="keyword">sizeof</span>(buf),<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"push"</span>,<span class="number">4</span>))&#123;</span><br><span class="line">            <span class="keyword">if</span>(n&lt;<span class="number">8</span>)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;size);</span><br><span class="line">                ptr[n]=<span class="built_in">malloc</span>(size);</span><br><span class="line">                fgets(ptr[n],size,<span class="built_in">stdin</span>);</span><br><span class="line">                n++;</span><br><span class="line">            &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"stack is full"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"pop"</span>,<span class="number">3</span>))&#123;</span><br><span class="line">            <span class="keyword">if</span>(n&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                n--;</span><br><span class="line">                <span class="built_in">puts</span>(ptr[n]);</span><br><span class="line">                <span class="built_in">free</span>(ptr[n]);</span><br><span class="line">                ptr[n]=<span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"stack is empty"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>  &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"unknown command"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Unlink-Exploitation"><a href="#Unlink-Exploitation" class="headerlink" title="Unlink Exploitation"></a>Unlink Exploitation</h3><h4 id="freed-chunks"><a href="#freed-chunks" class="headerlink" title="freed chunks"></a>freed chunks</h4><ul>
+<li>非fastbin chunk在free掉是，会跟前后的freed chunks合并</li>
+</ul>
+<h4 id="unlink-Macro"><a href="#unlink-Macro" class="headerlink" title="unlink() Macro"></a>unlink() Macro</h4><ul>
+<li>unlink()是用来把chunk移出bin用的，从double linked-list移除</li>
+</ul>
+<h4 id="合并freed-chunks"><a href="#合并freed-chunks" class="headerlink" title="合并freed chunks"></a>合并freed chunks</h4><ul>
+<li>非fastbin chunk在free掉时，会跟前后的freed chunks合并</li>
+</ul>
+<h4 id="利用unlink-–old"><a href="#利用unlink-–old" class="headerlink" title="利用unlink()–old"></a>利用unlink()–old</h4><ul>
+<li>如果有overflow可以覆盖到某个chunk q的prevsize，free q时传入unlink(p)的p可以控制</li>
+<li>慎选p使得chunk p的内容也可控</li>
+<li>利用FD-&gt;bk = BK 和 BK-&gt;fd = FD, 可以同时写入两个目标，例如：<ul>
+<li>FD = p-&gt;fd = <a href="mailto:free@got.plt" target="_blank" rel="noopener">free@got.plt</a> - 0x18</li>
+<li>BK = p-&gt;bk = shellcode</li>
+</ul>
+</li>
+</ul>
+<h4 id="Sadly-Truth"><a href="#Sadly-Truth" class="headerlink" title="Sadly Truth"></a>Sadly Truth</h4><ul>
+<li>实际的unnlink会检查double linked-list是不是合法<ul>
+<li>指过去要能指回来，即p-&gt;fd-&gt;bk == p<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define unlink(P, BK, FD)&#123;</span><br><span class="line">    FD = P-&gt;fd;</span><br><span class="line">    BK = P-&gt;bk;</span><br><span class="line">    if(FD-&gt;bk != P || BK-&gt;fd !=P)</span><br><span class="line">        malloc_printerr(chekc_action, &quot;corrupter d...&quot;, P);</span><br><span class="line">    eles&#123;</span><br><span class="line">        FD-&gt;bk = BK;</span><br><span class="line">        BK-&gt;fd = FD;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Overwrite-Heap-Pointer"><a href="#Overwrite-Heap-Pointer" class="headerlink" title="Overwrite Heap Pointer"></a>Overwrite Heap Pointer</h4><ul>
+<li>实际上unlink的检查还是有办法绕过，而且可以得到一种很实用的利用方法</li>
+<li>需要有：<ul>
+<li>一个指向heap内的指标</li>
+<li>存放该指标的位置一直(例如：该指标是全域变数)</li>
+<li>可以对该指标写入多次<ul>
+<li>FD = p-&gt;fd = &amp;p - 0x18</li>
+<li>BK = p-&gt;bk=&amp;p - 0x10</li>
+<li>FD-&gt;bk = BK</li>
+<li>BK -&gt; fd =FD</li>
+<li>Result: p = &amp;p - 0x18</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *cmd;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">(<span class="keyword">char</span> *c)</span></span>&#123;</span><br><span class="line">    system(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span>* ptr[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">int</span> size,n;</span><br><span class="line"></span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(ptr,<span class="number">0</span>,<span class="keyword">sizeof</span>(ptr));</span><br><span class="line">    cmd = <span class="built_in">malloc</span>(<span class="number">128</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        fgets(cmd,<span class="number">128</span>,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"add"</span>,<span class="number">3</span>))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Index:"</span>);</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">            <span class="keyword">if</span>(n&gt;=<span class="number">0</span> &amp;&amp; n&lt;<span class="number">8</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Size: "</span>);</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;size);</span><br><span class="line">                ptr[n]=<span class="built_in">malloc</span>(size);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Data: "</span>);</span><br><span class="line">                gets(ptr[n]);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"out of bound"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"remove"</span>,<span class="number">6</span>))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Index: "</span>);</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;n);</span><br><span class="line">            <span class="keyword">if</span>(n&gt;=<span class="number">0</span> &amp;&amp; n&lt;<span class="number">8</span> &amp;&amp; ptr[n])&#123;</span><br><span class="line">                <span class="built_in">puts</span>(ptr[n]);</span><br><span class="line">                <span class="built_in">free</span>(ptr[n]);</span><br><span class="line">                ptr[n]=<span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"nothing here"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"unknown command"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="mmap-and-arena"><a href="#mmap-and-arena" class="headerlink" title="mmap and arena"></a>mmap and arena</h3><h4 id="mmap-chunks"><a href="#mmap-chunks" class="headerlink" title="mmap chunks"></a>mmap chunks</h4><ul>
+<li>malloc size 超过约0x21000时，会改用mmap直接要求新的记忆体</li>
+<li>mmap得到的位之时连续的，得到的chunk会在上一次mmap之前，通常最后一次mmap会是tls段</li>
+</ul>
+<h4 id="伪造arena"><a href="#伪造arena" class="headerlink" title="伪造arena"></a>伪造arena</h4><ul>
+<li>平常使用的arena是在libc内部的main_arena变数</li>
+<li>malloc时其实会根据tls段上面的某个指标，决定要使用的arena</li>
+<li>mmap chunk overflow  时可以盖掉arena指标<ul>
+<li>tls段上还有stack address ，stack guard canary</li>
+</ul>
+</li>
+<li>伪造arena的fastbin部分，使得下次malloc时可以取得伪造的chunk</li>
+<li>这个利用方式需要任意大小的malloc，但不需要free</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">(<span class="keyword">char</span> *c)</span></span>&#123;</span><br><span class="line">    system(c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> cmd[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span>* ptr[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">char</span> magic[<span class="number">32</span>];</span><br><span class="line">    <span class="keyword">int</span> size,n;</span><br><span class="line"></span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(ptr,<span class="number">0</span>,<span class="keyword">sizeof</span>(ptr));</span><br><span class="line"></span><br><span class="line">    gets(magic);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        fgets(cmd,<span class="number">1024</span>,<span class="built_in">stdin</span>);</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"add"</span>,<span class="number">3</span>))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Index:"</span>);</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">            <span class="keyword">if</span>(n&gt;=<span class="number">0</span> &amp;&amp; n&lt;<span class="number">8</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Size: "</span>);</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;size);</span><br><span class="line">                ptr[n] = <span class="built_in">malloc</span>(size);</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Data: "</span>);</span><br><span class="line">                gets(ptr[n]);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"out of bound"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">strncmp</span>(cmd,<span class="string">"print"</span>,<span class="number">5</span>))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Index: "</span>);</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">            <span class="keyword">if</span>(n&gt;=<span class="number">0</span> &amp;&amp; n&lt;<span class="number">8</span> &amp;&amp; ptr[n])&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"Size: "</span>);</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;size);</span><br><span class="line">                write(<span class="number">1</span>,ptr[n],size);</span><br><span class="line">            &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"nothing here"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(cmd,<span class="string">"exit"</span>,<span class="number">4</span>))&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"unknow command"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">"./main"</span>)</span><br><span class="line">context.termial(<span class="string">"tmux"</span>,<span class="string">"splitw"</span>,<span class="string">"-h"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(idx, size, data)</span>:</span></span><br><span class="line">    p.sendline(<span class="string">"add"</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.sendline(str(sz))</span><br><span class="line">    p.recvuntil(<span class="string">"Data: "</span>)</span><br><span class="line">    p.sendline(data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prt</span><span class="params">(idx, sz)</span>:</span></span><br><span class="line">    p.sendline(<span class="string">"print"</span>)</span><br><span class="line">    p.sendline(str(idx))</span><br><span class="line">    p.recvuntil(<span class="string">"Size: "</span>)</span><br><span class="line">    p.sendline(str(sz))</span><br><span class="line">    <span class="keyword">return</span> p.recvn(sz)</span><br><span class="line"></span><br><span class="line">p.sendline(p64(<span class="number">0</span>)+p64(<span class="number">0x72</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/24/week-8/" rel="next" title="week 8">
+                <i class="fa fa-chevron-left"></i> week 8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/25/“Securinets-Prequals/" rel="prev" title="Securinets Prequals_西湖论剑">
+                Securinets Prequals_西湖论剑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Fake Student</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glibc-Heap-Overview"><span class="nav-number">1.</span> <span class="nav-text">Glibc Heap Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap相关的漏洞利用"><span class="nav-number">1.1.</span> <span class="nav-text">Heap相关的漏洞利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Glibc-Heap是做概况"><span class="nav-number">1.2.</span> <span class="nav-text">Glibc Heap是做概况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Chunk"><span class="nav-number">1.2.1.</span> <span class="nav-text">Chunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Chunk-Header-栏位"><span class="nav-number">1.2.2.</span> <span class="nav-text">Chunk Header 栏位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">1.3.</span> <span class="nav-text">Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heap-c"><span class="nav-number">1.3.1.</span> <span class="nav-text">heap.c</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exploit-Use-After-Free"><span class="nav-number">1.3.2.</span> <span class="nav-text">Exploit: Use After Free</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用Chunk的回收特性"><span class="nav-number">1.3.3.</span> <span class="nav-text">利用Chunk的回收特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fastbin"><span class="nav-number">2.</span> <span class="nav-text">Fastbin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fastbin-Corruption"><span class="nav-number">2.1.</span> <span class="nav-text">Fastbin Corruption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fastbin-Sanity-Check"><span class="nav-number">2.2.</span> <span class="nav-text">Fastbin Sanity Check</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overflow-Freed-chunk"><span class="nav-number">2.3.</span> <span class="nav-text">Overflow Freed chunk</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fastbin2-c"><span class="nav-number">2.3.1.</span> <span class="nav-text">fastbin2.c</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Free-Arbitrary-Address（House-of-Spirit）"><span class="nav-number">2.4.</span> <span class="nav-text">Free Arbitrary Address（House of Spirit）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unlink-Exploitation"><span class="nav-number">2.5.</span> <span class="nav-text">Unlink Exploitation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#freed-chunks"><span class="nav-number">2.5.1.</span> <span class="nav-text">freed chunks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unlink-Macro"><span class="nav-number">2.5.2.</span> <span class="nav-text">unlink() Macro</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并freed-chunks"><span class="nav-number">2.5.3.</span> <span class="nav-text">合并freed chunks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用unlink-–old"><span class="nav-number">2.5.4.</span> <span class="nav-text">利用unlink()–old</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sadly-Truth"><span class="nav-number">2.5.5.</span> <span class="nav-text">Sadly Truth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Overwrite-Heap-Pointer"><span class="nav-number">2.5.6.</span> <span class="nav-text">Overwrite Heap Pointer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-and-arena"><span class="nav-number">2.6.</span> <span class="nav-text">mmap and arena</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mmap-chunks"><span class="nav-number">2.6.1.</span> <span class="nav-text">mmap chunks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪造arena"><span class="nav-number">2.6.2.</span> <span class="nav-text">伪造arena</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fake Student</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

